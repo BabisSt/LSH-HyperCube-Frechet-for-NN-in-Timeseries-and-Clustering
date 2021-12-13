@@ -23,24 +23,28 @@ class Data
         int x; 
         float delta;
         vector<float> t;
-        vector<pair<string,vector<float>>> data;
+        vector<string> id;
+        vector<vector<float>> data;
         vector<vector<float>> queries;
-        vector<vector<pair<float,float>>> data_curve;
-        vector<vector<pair<float,float>>> query_curve;
-        vector<vector<pair<float,float>>> data_grid_curve;
-        vector<vector<pair<float,float>>> query_grid_curve;
+        vector<vector<pair<float,float>>> data_curve;   //erwthma 2
+        vector<vector<pair<float,float>>> query_curve;  //erwthma 2
+        vector<vector<float>> data_grid_curve;      //erwthma 3 thn exw sthn euteia , prepei filtering
+        vector<vector<float>> query_grid_curve;
 
         Data();
 
         int Init_DataSet(ifstream &inputFile);       //dhmiourgia tou dataset
-        int Init_Data_curve(const vector<vector<float>> &data);
-        int Init_Data_Grid_curve(const vector<vector<pair<float,float>>> &data_curve);
+        int Init_Data_curve(vector<vector<float>> &data);
+        int Init_Data_Grid_curve(vector<vector<float>> &data);
 
         int ReadQueryFile(ifstream &queryFile);     //dhmourgia tou queryset
-        int Init_Query_curve(const vector<vector<float>> &query);
-        int Init_Query_Grid_curve(const vector<vector<pair<float,float>>> &query_curve);
+        int Init_Query_curve(vector<vector<float>> &query);
+        int Init_Query_Grid_curve(vector<vector<float>> &query);
 
+        int Filtering( vector<vector<float>> &curve);
+        int Padding(vector<vector<float>> &data,vector<vector<float>> &query);
 
+        //float find_dist(vector<pair<float,float>> &p, vector<pair<float,float>> &q);
         double (*distanceFunction)(const vector<float> &p1,const vector<float> &p2);
 
         vector<pair<int,int>>Range_Search(vector<float> query, float R);

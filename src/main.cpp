@@ -41,7 +41,16 @@ int main(int argc, char *argv[])
             return -1;
         }
 
-        data.Init_Data_curve(data.data);
+        //data.Init_Data_curve(data.data);
+        
+        data.Filtering(data.data);
+
+        data.Init_Data_Grid_curve(data.data);
+        //data.Init_Data_Grid_curve(data.data);
+        
+
+
+        
         if(input.mode == _cluster)                                      //me cluster
         {
             
@@ -63,17 +72,24 @@ int main(int argc, char *argv[])
 
             if(input.mode == _lsh)                          //an einai lsh
             {
-                LSH *lsh = new LSH(input.lsh_k, input.L, data, 10000,input.R);
+                //LSH *lsh = new LSH(input.lsh_k, input.L, data, 10000,input.R);
 
-                if(lsh->Run(data.queries, input.outputFile, input.N, input.R) == -1)
-                {
-                    cerr << "LSH::Run() failed" << endl;
-                }
-                delete lsh;
+                //if(lsh->Run(data.queries, input.outputFile, input.N, input.R) == -1)
+                //{
+                //    cerr << "LSH::Run() failed" << endl;
+                //}
+                //delete lsh;
             }
             
+            data.Filtering(data.queries);
+            data.Init_Query_Grid_curve(data.queries);
+
+            data.Padding(data.data_grid_curve,data.query_grid_curve);
+                
+
             
         }
+        
         
         string str;
         while (1)                                           //epanalambanei gia diaforetikes ekteleseis tou xrhsth

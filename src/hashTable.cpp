@@ -60,9 +60,9 @@ uint32_t hashTable::calculate_h(const vector<float> &point,const vector<double> 
         calculate_t(this->w,k);
         if(this->t[i] != 0)
         {
-        x +=point[i] * abs(v[i]);
-        result = floor( double(x + this->t[i] )/ double(this->w) );
-
+            x +=point[i] * abs(v[i]);
+            //x= 10000;
+            result = floor( double(x + this->t[i] )/ double(this->w) );
         }
     }
 
