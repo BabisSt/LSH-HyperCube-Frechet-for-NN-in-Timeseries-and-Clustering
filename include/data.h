@@ -23,7 +23,7 @@ class Data
         int x; 
         float delta;
         vector<float> t;
-        vector<vector<float>> data;
+        vector<pair<string,vector<float>>> data;
         vector<vector<float>> queries;
         vector<vector<pair<float,float>>> data_curve;
         vector<vector<pair<float,float>>> query_curve;
