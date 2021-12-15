@@ -41,12 +41,12 @@ int main(int argc, char *argv[])
             return -1;
         }
 
-        // data.Init_Data_curve(data.data);
+        data.Init_Data_curve(data.data);
 
         //data.Filtering(data.data);
 
         //data.Init_Data_Grid_curve(data.data);
-        // data.Init_Data_Grid_curve(data.data);
+        //data.Init_Data_Grid_curve(data.data);
 
         if (input.mode == _cluster) // me cluster
         {
@@ -76,6 +76,10 @@ int main(int argc, char *argv[])
                 // }
                 // delete lsh;
             }
+
+            data.Init_Query_curve(data.queries);
+
+            
 
             //data.Filtering(data.queries);
             //data.Init_Query_Grid_curve(data.queries);

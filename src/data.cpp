@@ -61,19 +61,21 @@ int Data::Init_DataSet(ifstream &inputFile)
     return 0;
 }
 
-int Data::Init_Data_curve(vector<vector<float>> &data) // erwthma 2
+int Data::Init_Data_curve(vector<pair<string,vector<float>>> &data) // erwthma 2
 {
 
     for (float r = 0; r < data.size(); r++)
     {
-        data_curve.push_back(vector<pair<float, float>>());
-        for (float j = 0; j < data[r].size(); j++)
+        data_curve.push_back(pair<string,vector<pair<float, float>>>());
+        for (float j = 0; j < data[r].second.size(); j++)
         {
             float temp_x = j * this->x;
-            data_curve[r].push_back(make_pair(temp_x, data[r][j]));
+            data_curve[r].second.push_back(make_pair(temp_x, data[r].second[j]));
             // cout << " " << data_curve[r][j].first << " " << data_curve[r][j].second << endl;
         }
     }
+
+    
     // Init_Data_Grid_curve(data);
     return 0;
 }
@@ -110,7 +112,7 @@ int Data::ReadQueryFile(ifstream &queryFile)
     while (getline(queryFile, line))
     {
         istringstream iss(line);
-        data.emplace_back(pair<string, vector<float>>());
+        queries.emplace_back(pair<string, vector<float>>());
         this->n++;
         this->d = 0;
 
@@ -127,19 +129,20 @@ int Data::ReadQueryFile(ifstream &queryFile)
     return 0;
 }
 
-int Data::Init_Query_curve(vector<vector<float>> &query) // erwthma 2
+int Data::Init_Query_curve(vector<pair<string,vector<float>>> &query) // erwthma 2
 {
 
     for (float r = 0; r < query.size(); r++)
     {
-        query_curve.push_back(vector<pair<float, float>>());
-        for (float j = 0; j < query[r].size(); j++)
+        query_curve.push_back(pair<string,vector<pair<float, float>>>());
+        for (float j = 0; j < query[r].second.size(); j++)
         {
             float temp_x = j * this->x;
-            query_curve[r].push_back(make_pair(temp_x, query[r][j]));
+            query_curve[r].second.push_back(make_pair(temp_x, query[r].second[j]));
         }
     }
-
+    //double x =FrechetDistance(data_curve[0].second,query_curve[0].second,0,0);
+    //cout << "x" << x <<endl;
     return 0;
 }
 
@@ -221,7 +224,7 @@ int Data::Padding(vector<pair<string, vector<float>>> &data, vector<pair<string,
     return 0;
 }
 
-double Data::EuclideanDistance(const vector<float> &p1, const vector<float> &p2)
+double Data::EuclideanDistance(vector<float> &p1, vector<float> &p2)
 {
     unsigned int d = 0;
 
@@ -233,16 +236,28 @@ double Data::EuclideanDistance(const vector<float> &p1, const vector<float> &p2)
     return sqrt(d);
 }
 
-// double Data::FrechetDistance(const vector<vector<pair<float,float>>> &curve_1, const vector<vector<pair<float,float>>> &curve_2)
-// {
+double Data::FrechetDistance(vector<pair<float,float>> &curve_1, vector<pair<float,float>> &curve_2,int i, int j)
+{
+    cout <<" i" <<i << "j" << j<< endl;
+    if( i==0 && j==0)
+    {
+        return sqrt(pow(curve_2[0].second - curve_1[0].second,2) * 1.0 );
+    }
+    if (i==0 && j> 0 )
+    {
+        return max(FrechetDistance(curve_1,curve_2,0,j-1),sqrt(pow(curve_2[j].second - curve_1[0].second,2) * 1.0 ));
+    }
+    if( i> 0 && j==0)
+    {
+        return max(FrechetDistance(curve_1,curve_2,i-1,0),sqrt(pow(curve_2[0].second - curve_1[i].second,2) * 1.0 ));
+    }
+        //cout << "x " << curve_2[j].first << " " << curve_1[i].first << endl;
+        //cout << "y " << curve_2[j].second << " " << curve_1[i].second << endl;
 
-// }
+    return max( {min( {FrechetDistance(curve_1,curve_2,i-1,j) ,FrechetDistance(curve_1,curve_2,i-1,j-1),FrechetDistance(curve_1,curve_2,i,j-1)} ), sqrt(pow(curve_2[j].first - curve_1[i].first,2) + pow(curve_2[j].second - curve_1[i].second,2) * 1.0 )});
+    //return min(FrechetDistance(curve_1,curve_2,i-1,j),double(24));
+}
 
-// float Data::find_dist(vector<pair<float,float>> &p, vector<pair<float,float>> &q)
-// {
-
-//     find_dist(p[0].second-1,p[0].second-1)
-// }
 
 vector<pair<int, int>> Data::Range_Search(vector<float> query, float R)
 {
@@ -259,7 +274,7 @@ vector<pair<int, int>> Data::Range_Search(vector<float> query, float R)
     return result;
 }
 
-vector<pair<int, int>> Data::Get_Closest_Neighbors(const vector<float> &query, const vector<pair<int, vector<float>>> &data, const int &N)
+vector<pair<int, int>> Data::Get_Closest_Neighbors( vector<float> &query, vector<pair<int, vector<float>>> &data, int &N)
 {
     vector<pair<int, int>> result;
 
@@ -286,7 +301,7 @@ vector<pair<int, int>> Data::Get_Closest_Neighbors(const vector<float> &query, c
     return result;
 }
 
-vector<pair<int, int>> Data::Brute_Force_Neighbors(const vector<float> &query, const int &N)
+vector<pair<int, int>> Data::Brute_Force_Neighbors(vector<float> &query, int &N)
 {
     vector<pair<int, int>> result;
 

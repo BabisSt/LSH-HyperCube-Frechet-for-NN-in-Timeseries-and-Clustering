@@ -21,11 +21,11 @@ class LSH
 
         void hashData();
 
-        uint32_t calculate_g(const vector<float> &points, hashTable *ht );
+        uint32_t calculate_g(vector<float> &points, hashTable *ht );
 
         void print(
                 ofstream &outputFile,
-                const int &query,
+                int &query,
                 vector<pair<int,int>> lshResult,
                 vector<pair<int,int>> trueResult,
                 const double &tLSH, const double &tTRUE,
@@ -36,8 +36,8 @@ class LSH
         LSH(int , int L, Data &data, float w = 10000, int r= 10000);
         ~LSH();
 
-        int Run(const vector<vector<float>> &queries, ofstream &outputFile, const int &N, const int &R);
+        int Run(vector<vector<float>> &queries, ofstream &outputFile, int &N,int &R);
 
         vector<pair<int,int>>
-        exec_query(const vector<float> &query,const int &N);
+        exec_query(vector<float> &query, int &N);
 };

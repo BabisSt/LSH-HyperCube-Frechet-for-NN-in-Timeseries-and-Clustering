@@ -32,7 +32,7 @@ LSH::~LSH()
     }
 }
 
-int LSH::Run(const vector<vector<float>> &queries, ofstream &outputFile, const int &N, const int &R)
+int LSH::Run(vector<vector<float>> &queries, ofstream &outputFile, int &N,int &R)
 {
     for (int i = 0; i < int(queries.size()); i++)
     {
@@ -67,7 +67,7 @@ void LSH::hashData()
     }
 }
 
-uint32_t LSH::calculate_g(const vector<float> &points, hashTable *ht)
+uint32_t LSH::calculate_g(vector<float> &points, hashTable *ht)
 {
     uint32_t g = 0, result;
 
@@ -81,7 +81,7 @@ uint32_t LSH::calculate_g(const vector<float> &points, hashTable *ht)
     return result;
 }
 
-vector<pair<int, int>> LSH::exec_query(const vector<float> &query, const int &N)
+vector<pair<int, int>> LSH::exec_query(vector<float> &query, int &N)
 {
     unordered_set<int> pickedPoints;
     vector<pair<int, vector<float>>> possible_neighbors;
@@ -103,7 +103,7 @@ vector<pair<int, int>> LSH::exec_query(const vector<float> &query, const int &N)
     return this->data.Get_Closest_Neighbors(query, possible_neighbors, N);
 }
 
-void LSH::print(ofstream &outputFile, const int &query, vector<pair<int, int>> lshResult, vector<pair<int, int>> trueResult, const double &tLSH, const double &tTRUE, vector<pair<int, int>> rangeSearch)
+void LSH::print(ofstream &outputFile,int &query, vector<pair<int, int>> lshResult, vector<pair<int, int>> trueResult, const double &tLSH, const double &tTRUE, vector<pair<int, int>> rangeSearch)
 {
     outputFile << "Query: " << query << endl;
 
