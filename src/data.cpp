@@ -74,18 +74,18 @@ int Data::Init_Data_curve(vector<vector<float>> &data) // erwthma 2
             // cout << " " << data_curve[r][j].first << " " << data_curve[r][j].second << endl;
         }
     }
-    //Init_Data_Grid_curve(data);
+    // Init_Data_Grid_curve(data);
     return 0;
 }
 
-int Data::Init_Data_Grid_curve(vector<pair<string,vector<float>>> &data) // erwthma 3, kanei snap thn y
+int Data::Init_Data_Grid_curve(vector<pair<string, vector<float>>> &data) // erwthma 3, kanei snap thn y
 {
     srand((unsigned)time(NULL));
 
     for (float r = 0; r < data.size(); r++)
     {
         this->t.push_back(float(rand()) / float((RAND_MAX)) * this->delta);
-        data_grid_curve.push_back(pair<string,vector<float>>());
+        data_grid_curve.push_back(pair<string, vector<float>>());
         for (float j = 0; j < data[r].second.size(); j++)
         {
             float temp_y = 0;
@@ -143,12 +143,12 @@ int Data::Init_Query_curve(vector<vector<float>> &query) // erwthma 2
     return 0;
 }
 
-int Data::Init_Query_Grid_curve(vector<pair<string,vector<float>>> &query) // erwthma 3, pairnw thn mia metablhth y kai thn kanw snap
+int Data::Init_Query_Grid_curve(vector<pair<string, vector<float>>> &query) // erwthma 3, pairnw thn mia metablhth y kai thn kanw snap
 {
 
     for (float r = 0; r < query.size(); r++)
     {
-        query_grid_curve.push_back(pair<string,vector<float>>());
+        query_grid_curve.push_back(pair<string, vector<float>>());
         for (float j = 0; j < query[r].second.size(); j++)
         {
             float temp_y = 0;
@@ -164,7 +164,7 @@ int Data::Init_Query_Grid_curve(vector<pair<string,vector<float>>> &query) // er
     return 0;
 }
 
-int Data::Filtering(vector<pair<string,vector<float>>> &curve)
+int Data::Filtering(vector<pair<string, vector<float>>> &curve)
 {
     float epsilon = 0.1;
 
@@ -189,7 +189,7 @@ int Data::Filtering(vector<pair<string,vector<float>>> &curve)
     return 0;
 }
 
-int Data::Padding(vector<pair<string,vector<float>>> &data, vector<pair<string,vector<float>>> &query)
+int Data::Padding(vector<pair<string, vector<float>>> &data, vector<pair<string, vector<float>>> &query)
 {
     for (float j = 0; j < query.size(); j++)
     {
@@ -318,17 +318,19 @@ vector<float> Data::compare(vector<vector<float>> data, vector<vector<float>> qu
     vector<vector<float>> result;
     vector<float> curr_max;
     int k = 0;
+    float sum = 0;
 
-    for (int i = 0; i < n; i++)
+    while (query[k][0] != NULL) // Loops through all the query time series
     {
-        while (query[k][0] != NULL)
+        for (int i = 0; i < n; i++) // Loops through all the data time series
         {
-            for (int j = 0; j < d; j++)
+            for (int j = 0; j < d; j++) // Loops through every point of a time series
             {
-                result[][] += abs(data[i][j] - query[k][j]);
+                sum += abs(query[k][j] - data[i][j]); // Sums up their difference
             }
-            k++;
+            //**result.emplace_back(sum); // Stores it in result (k - No of query, i - No of data)
+            sum = 0;
         }
-        k = 0;
+        k++;
     }
 }
