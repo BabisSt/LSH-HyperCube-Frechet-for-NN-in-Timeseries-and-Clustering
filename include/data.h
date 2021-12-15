@@ -32,6 +32,8 @@ public:
 
     Data();
 
+    vector<float> compare(vector<vector<float>> data, vector<vector<float>> query);
+
     int Init_DataSet(ifstream &inputFile); // dhmiourgia tou dataset
     int Init_Data_curve(vector<vector<float>> &data);
     int Init_Data_Grid_curve(vector<vector<float>> &data);

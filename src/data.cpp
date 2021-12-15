@@ -312,3 +312,23 @@ vector<pair<int, int>> Data::Brute_Force_Neighbors(const vector<float> &query, c
 
     return result;
 }
+
+vector<float> Data::compare(vector<vector<float>> data, vector<vector<float>> query)
+{
+    vector<vector<float>> result;
+    vector<float> curr_max;
+    int k = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        while (query[k][0] != NULL)
+        {
+            for (int j = 0; j < d; j++)
+            {
+                result[][] += abs(data[i][j] - query[k][j]);
+            }
+            k++;
+        }
+        k = 0;
+    }
+}
