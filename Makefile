@@ -13,10 +13,10 @@ EXEC1 = lsh
 EXEC2 = cube
 EXEC3 = cluster
 
-_DEPS = data.h input.h hashTable.h LSH.h
+_DEPS = data.h input.h LSH.h hashTable.h hyperCube.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o input.o data.o hashTable.o LSH.o
+_OBJ = main.o input.o data.o LSH.o hashTable.o hyperCube.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
@@ -51,17 +51,17 @@ valgrind-lsh:
 
 run-hc:
 	./$(BDIR)/$(EXEC2) \
-	-i ./assets/ok \
-	-q ./assets/query_small_id \
+	-i ./assets/dataset.csv \
+	-q ./assets/query.csv \
 	-o ./logs/logs.txt \
 	-N 50
 
 valgrind-hc:
 	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(BDIR)/$(EXEC2) \
-	-i ./assets/ok \
-	-q ./assets/query_small_id \
+	-i ./assets/dataset.csv \
+	-q ./assets/query.csv \
 	-o ./logs/logs.txt \
-	-N 50
+	-N 10
 
 run-cluster-classic:
 	./$(BDIR)/$(EXEC3) \

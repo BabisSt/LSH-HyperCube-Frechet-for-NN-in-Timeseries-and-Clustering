@@ -36,7 +36,7 @@ class LSH
         LSH(int , int L, Data &data, float w = 10000, int r= 10000);
         ~LSH();
 
-        int Run(vector<vector<float>> &queries, ofstream &outputFile, int &N,int &R);
+        int Run(vector<pair<string, vector<float>>> &queries, ofstream &outputFile, int &N,int &R);
 
         vector<pair<int,int>>
         exec_query(vector<float> &query, int &N);

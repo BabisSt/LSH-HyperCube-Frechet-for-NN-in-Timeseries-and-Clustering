@@ -16,7 +16,7 @@ LSH::LSH(int k, int L, Data &data, float w, int r)
 
     for (int i = 0; i < L; i++)
     {
-        this->tables[i] = new hashTable(this->data.n, this->k, this->data.d, this->w, this->M);
+        this->tables[i] = new hashTable(this->data.n, this->k, this->data.d, this->w, this->M);         //data.n/32
     }
 
     cout << "Running with w: " << w << " and M: " << this->M << endl;
@@ -32,23 +32,23 @@ LSH::~LSH()
     }
 }
 
-int LSH::Run(vector<vector<float>> &queries, ofstream &outputFile, int &N,int &R)
+int LSH::Run(vector<pair<string, vector<float>>> &queries, ofstream &outputFile, int &N,int &R)
 {
     for (int i = 0; i < int(queries.size()); i++)
     {
         auto lshStart = chrono::high_resolution_clock::now();
-        vector<pair<int, int>> lshResult = this->exec_query(queries[i], N);
+        vector<pair<int, int>> lshResult = this->exec_query(queries[i].second, N);
         auto lshStop = chrono::high_resolution_clock::now();
 
         auto tLSH = chrono::duration_cast<chrono::milliseconds>(lshStop - lshStart);
 
         auto tStart = chrono::high_resolution_clock::now();
-        vector<pair<int, int>> trueResult = this->data.Brute_Force_Neighbors(queries[i], N);
+        vector<pair<int, int>> trueResult = this->data.Brute_Force_Neighbors(queries[i].second, N);
         auto tStop = chrono::high_resolution_clock::now();
 
         auto tTrue = chrono::duration_cast<chrono::milliseconds>(tStop - tStart);
 
-        this->print(outputFile, i, lshResult, trueResult, tLSH.count(), tTrue.count(), this->data.Range_Search(queries[i], R));
+        this->print(outputFile, i, lshResult, trueResult, tLSH.count(), tTrue.count(), this->data.Range_Search(queries[i].second, R)); //tha allaksw ta queries se vector<pair<string,vector<float>>>
     }
 
     return 0;
@@ -67,7 +67,7 @@ void LSH::hashData()
     }
 }
 
-uint32_t LSH::calculate_g(vector<float> &points, hashTable *ht)
+uint32_t LSH::calculate_g(vector<float> &points, hashTable *ht) 
 {
     uint32_t g = 0, result;
 

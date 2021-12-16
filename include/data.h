@@ -21,6 +21,7 @@ public:
     int x;
     float delta;
     vector<float> t;
+    vector<double> distance_results;
     vector<pair<string, vector<float>>> data;
     vector<pair<string, vector<float>>> queries;
 

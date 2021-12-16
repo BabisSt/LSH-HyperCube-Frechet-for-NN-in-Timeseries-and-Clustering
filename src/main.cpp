@@ -6,7 +6,10 @@
 
 #include "../include/input.h"
 #include "../include/data.h"
-//#include "../include/LSH.h"
+#include "../include/LSH.h"
+#include "../include/hyperCube.h"
+
+
 
 using namespace std;
 
@@ -41,7 +44,7 @@ int main(int argc, char *argv[])
             return -1;
         }
 
-        data.Init_Data_curve(data.data);
+        //data.Init_Data_curve(data.data);
 
         //data.Filtering(data.data);
 
@@ -50,6 +53,29 @@ int main(int argc, char *argv[])
 
         if (input.mode == _cluster) // me cluster
         {
+            // kmeansplusplus *kmeans;
+
+            // if(!strcmp(input.method, "Classic"))                        //klassikh periptwsh gia kmeansplusplus
+            // {
+            //     kmeans = new kmeansplusplus(input.nClusters, input.complete, data);
+            // }
+            // else if(!strcmp(input.method, "LSH"))                      //gia LSH
+            // {
+            //     kmeans = new kmeansplusplus(input.nClusters, input.complete, input.lsh_k, input.L, data);
+            // }
+            // else if(!strcmp(input.method, "HyperCube"))                 //gia hypercube
+            // {
+            //     kmeans = new kmeansplusplus(input.nClusters, input.complete, input.cube_k, input.M, input.probes, data);
+            // }
+            // else
+            // {
+            //     cout << "Method: " << input.method << " not recognized " << endl;
+            //     return -1;
+            // }
+
+            // kmeans->Run(input.outputFile);
+
+            // delete kmeans;
         }
         else // xwris cluster gia queries
         {
@@ -68,16 +94,27 @@ int main(int argc, char *argv[])
 
             if (input.mode == _lsh) // an einai lsh
             {
-                // LSH *lsh = new LSH(input.lsh_k, input.L, data, 10000,input.R);
+                LSH *lsh = new LSH(input.lsh_k, input.L, data, 10000,input.R);
 
-                // if(lsh->Run(data.queries, input.outputFile, input.N, input.R) == -1)
-                //{
-                //     cerr << "LSH::Run() failed" << endl;
-                // }
-                // delete lsh;
+                if(lsh->Run(data.queries, input.outputFile, input.N, input.R) == -1)
+                {
+                    cerr << "LSH::Run() failed" << endl;
+                }
+                delete lsh;
+            }
+            else                                            //an einai hypercube
+            {
+                HyperCube *hc = new HyperCube(floor(log2(data.n)), input.M, input.probes, data);
+
+                if(hc->Run(data.queries, input.outputFile, input.N, input.R) ==  -1)
+                {
+                    cerr << "HyperCube::hyperCubeRun() failed" << endl;
+                }
+
+                delete hc;
             }
 
-            data.Init_Query_curve(data.queries);
+            //data.Init_Query_curve(data.queries);
 
             
 

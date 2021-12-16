@@ -239,6 +239,7 @@ double Data::EuclideanDistance(vector<float> &p1, vector<float> &p2)
 double Data::FrechetDistance(vector<pair<float,float>> &curve_1, vector<pair<float,float>> &curve_2,int i, int j)
 {
     cout <<" i" <<i << "j" << j<< endl;
+    cout << "size 1 " << curve_1.size() << "size 2" << curve_2.size() << endl;
     if( i==0 && j==0)
     {
         return sqrt(pow(curve_2[0].second - curve_1[0].second,2) * 1.0 );
