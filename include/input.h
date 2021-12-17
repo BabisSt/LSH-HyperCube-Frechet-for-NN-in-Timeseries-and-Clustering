@@ -14,7 +14,8 @@ enum Mode
 {
     _lsh,
     _cube,
-    _cluster
+    _cluster,
+    _frechet
 };
 
 class Input
@@ -28,6 +29,8 @@ class Input
         int cube_k, M, probes;  //for hypercube
         int N, R;               //for lsh and hypercube
         char *method = nullptr;
+        char *metric = nullptr;
+        double delta;
         bool complete = false;
         Mode mode;
         ifstream inputFile, queryFile;

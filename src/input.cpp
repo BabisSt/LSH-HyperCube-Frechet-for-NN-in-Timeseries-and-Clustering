@@ -249,7 +249,7 @@ int Input::Parse_Input_Options(const int &argc, char *argv[])
                 sscanf(val, "%d", &(this->lsh_k));
             }
         }
-        else
+        else if(string(argv[0]).find("hypercube") != string::npos)
         {
             this->mode = _cube;
             this->cube_k = 14;
@@ -272,6 +272,26 @@ int Input::Parse_Input_Options(const int &argc, char *argv[])
             }
 
         }
+        else
+        {
+            this->mode = _frechet;
+            this->lsh_k = 4;
+            this->L = 5;
+            this->delta = 0.5;
+            this->metric = "discrete";
+            
+            if((val = this->getCmdOption(argv,argv + argc, "-metric")) !=nullptr)
+            {
+                sscanf(val, "%s", (this->metric));
+            }
+
+            if((val = this->getCmdOption(argv,argv + argc, "-delta")) !=nullptr)
+            {
+                sscanf(val, "%lf", &(this->delta));
+            }
+   
+        }
+
     }
 
     return 0;

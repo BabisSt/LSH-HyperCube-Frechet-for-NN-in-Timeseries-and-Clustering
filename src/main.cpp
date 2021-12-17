@@ -94,13 +94,52 @@ int main(int argc, char *argv[])
 
             if (input.mode == _lsh) // an einai lsh
             {
-                LSH *lsh = new LSH(input.lsh_k, input.L, data, 10000,input.R);
+                //cout << "edw" << endl;
+                LSH *lsh = new LSH(input.lsh_k, input.L, data, 10000,input.R,input.delta);
 
                 if(lsh->Run(data.queries, input.outputFile, input.N, input.R) == -1)
                 {
                     cerr << "LSH::Run() failed" << endl;
                 }
                 delete lsh;
+            }
+            else if (input.mode == _frechet)
+            {
+                char* str = "discrete";
+                if(input.metric == str)     //erwthma 2
+                {
+                    data.Init_Data_curve(data.data);
+                    data.Init_Query_curve(data.queries);
+
+                    // data.distanceFunction = data.FrechetDistance(data.data_curve,data.query_curve,data.data_curve.size(),data.query_curve.size()
+                    LSH *lsh = new LSH(input.lsh_k, input.L, data, 10000,input.R,input.delta);
+
+                    if(lsh->Run(data.queries, input.outputFile, input.N, input.R) == -1)
+                    {
+                        cerr << "LSH::Run() failed" << endl;
+                    }
+                    delete lsh;
+                    
+                }
+                else                    //erwthma 3
+                {
+                    
+                    data.Filtering(data.data);
+                    data.Filtering(data.queries);
+
+                    data.Init_Data_Grid_curve(data.data);
+                    data.Init_Query_Grid_curve(data.queries);
+
+                    data.Padding(data.data_grid_curve, data.query_grid_curve);
+                    // data.distanceFunction = data.FrechetDistance(data.data_curve,data.query_curve,data.data_curve.size(),data.query_curve.size()
+                    LSH *lsh = new LSH(input.lsh_k, input.L, data, 10000,input.R,input.delta);
+
+                    if(lsh->Run(data.queries, input.outputFile, input.N, input.R) == -1)
+                    {
+                        cerr << "LSH::Run() failed" << endl;
+                    }
+                    delete lsh;
+                }
             }
             else                                            //an einai hypercube
             {

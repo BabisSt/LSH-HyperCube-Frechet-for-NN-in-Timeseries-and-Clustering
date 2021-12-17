@@ -12,6 +12,7 @@ SDIR = src
 EXEC1 = lsh
 EXEC2 = cube
 EXEC3 = cluster
+EXEC4 = frechet
 
 _DEPS = data.h input.h LSH.h hashTable.h hyperCube.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
@@ -22,7 +23,7 @@ OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
 	$(CC) $(OFLAGS) $(CFLAGS) -c $< -o $@ $(LDFLAGS)
 
-all: $(BDIR)/$(EXEC1) $(BDIR)/$(EXEC2) $(BDIR)/$(EXEC3)
+all: $(BDIR)/$(EXEC1) $(BDIR)/$(EXEC2) $(BDIR)/$(EXEC3) $(BDIR)/$(EXEC4)
 
 $(BDIR)/$(EXEC1): $(OBJ)
 	$(CC) $(OFLAGS) $(CFLAGS) $^ -o $@ $(LDFLAGS)
@@ -31,6 +32,9 @@ $(BDIR)/$(EXEC2): $(OBJ)
 	$(CC) $(OFLAGS) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 $(BDIR)/$(EXEC3): $(OBJ)
+	$(CC) $(OFLAGS) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+
+$(BDIR)/$(EXEC4): $(OBJ)
 	$(CC) $(OFLAGS) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 .PHONY: clean run* valgrind*
@@ -58,6 +62,21 @@ run-hc:
 
 valgrind-hc:
 	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(BDIR)/$(EXEC2) \
+	-i ./assets/dataset.csv \
+	-q ./assets/query.csv \
+	-o ./logs/logs.txt \
+	-N 10
+
+run-fr:
+	./$(BDIR)/$(EXEC4) \
+	-i ./assets/dataset.csv \
+	-q ./assets/query.csv \
+	-o ./logs/logs.txt \
+	-delta 0.5 \
+	-N 50
+
+valgrind-fr:
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(BDIR)/$(EXEC4) \
 	-i ./assets/dataset.csv \
 	-q ./assets/query.csv \
 	-o ./logs/logs.txt \
