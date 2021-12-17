@@ -16,7 +16,7 @@ LSH::LSH(int k, int L, Data &data, float w, int r)
 
     for (int i = 0; i < L; i++)
     {
-        this->tables[i] = new hashTable(this->data.n, this->k, this->data.d, this->w, this->M);         //data.n/32
+        this->tables[i] = new hashTable(this->data.n, this->k, this->data.d, this->w, this->M);
     }
 
     cout << "Running with w: " << w << " and M: " << this->M << endl;
@@ -32,7 +32,7 @@ LSH::~LSH()
     }
 }
 
-int LSH::Run(vector<pair<string, vector<float>>> &queries, ofstream &outputFile, int &N,int &R)
+int LSH::Run(vector<pair<string, vector<float>>> &queries, ofstream &outputFile, int &N, int &R)
 {
     for (int i = 0; i < int(queries.size()); i++)
     {
@@ -48,7 +48,7 @@ int LSH::Run(vector<pair<string, vector<float>>> &queries, ofstream &outputFile,
 
         auto tTrue = chrono::duration_cast<chrono::milliseconds>(tStop - tStart);
 
-        this->print(outputFile, i, lshResult, trueResult, tLSH.count(), tTrue.count(), this->data.Range_Search(queries[i].second, R)); //tha allaksw ta queries se vector<pair<string,vector<float>>>
+        this->print(outputFile, i, lshResult, trueResult, tLSH.count(), tTrue.count(), this->data.Range_Search(queries[i].second, R)); // tha allaksw ta queries se vector<pair<string,vector<float>>>
     }
 
     return 0;
@@ -67,7 +67,7 @@ void LSH::hashData()
     }
 }
 
-uint32_t LSH::calculate_g(vector<float> &points, hashTable *ht) 
+uint32_t LSH::calculate_g(vector<float> &points, hashTable *ht)
 {
     uint32_t g = 0, result;
 
@@ -103,7 +103,7 @@ vector<pair<int, int>> LSH::exec_query(vector<float> &query, int &N)
     return this->data.Get_Closest_Neighbors(query, possible_neighbors, N);
 }
 
-void LSH::print(ofstream &outputFile,int &query, vector<pair<int, int>> lshResult, vector<pair<int, int>> trueResult, const double &tLSH, const double &tTRUE, vector<pair<int, int>> rangeSearch)
+void LSH::print(ofstream &outputFile, int &query, vector<pair<int, int>> lshResult, vector<pair<int, int>> trueResult, const double &tLSH, const double &tTRUE, vector<pair<int, int>> rangeSearch)
 {
     outputFile << "Query: " << query << endl;
 
