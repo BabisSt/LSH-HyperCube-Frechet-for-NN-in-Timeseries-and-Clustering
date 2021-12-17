@@ -326,7 +326,7 @@ vector<pair<int, int>> Data::Brute_Force_Neighbors(vector<float> &query, int &N)
 
     return result;
 }
-
+/*
 vector<float> Data::compare(vector<vector<float>> data, vector<vector<float>> query)
 {
     vector<float> curr_max;
@@ -349,3 +349,4 @@ vector<float> Data::compare(vector<vector<float>> data, vector<vector<float>> qu
         k++;
     }
 }
+*/
