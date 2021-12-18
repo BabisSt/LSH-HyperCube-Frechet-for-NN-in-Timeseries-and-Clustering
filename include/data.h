@@ -41,11 +41,9 @@ public:
     vector<float> compare(vector<vector<float>> data, vector<vector<float>> query);
 
     int Init_DataSet(ifstream &inputFile); // dhmiourgia tou dataset
-    //int Init_Data_curve(vector<pair<string,vector<float>>> &data);
     int Init_Data_Grid_curve(vector<pair<string,vector<float>>> &data);
 
     int ReadQueryFile(ifstream &queryFile); // dhmourgia tou queryset
-    //int Init_Query_curve(vector<pair<string,vector<float>>> &query);
     int Init_Query_Grid_curve(vector<pair<string,vector<float>>> &query);
 
     int Filtering(vector<pair<string,vector<float>>> &curve,float epsilon);

@@ -33,7 +33,6 @@ class LSH
                 vector<pair<int,int>> lshResult,
                 vector<pair<int,int>> trueResult,
                 const double &tLSH, const double &tTRUE,
-                vector<pair<int,int>> rangeSearch,
                 vector<pair<string,vector<float>>> &data,
                 vector<pair<string,vector<float>>> &query
         ); 
@@ -43,7 +42,7 @@ class LSH
         LSH(int , int L, Data &data, float w = 10000, int r= 10000, float delta= 0.5,string algorithm= "default");
         ~LSH();
 
-        int Run(vector<pair<string, vector<float>>> &queries, ofstream &outputFile, int &N,int &R);
+        int Run(vector<pair<string, vector<float>>> &queries, ofstream &outputFile, int &N);
 
         vector<pair<int,int>>
         exec_query(vector<float> &query, int &N);

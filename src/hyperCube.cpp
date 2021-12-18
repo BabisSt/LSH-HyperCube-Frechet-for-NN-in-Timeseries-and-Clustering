@@ -67,7 +67,7 @@ HyperCube::~HyperCube()
     
 }
 
-int HyperCube::Run(vector<pair<string,vector<float>>> &queries, ofstream &outputFileint, int &N, int &R)
+int HyperCube::Run(vector<pair<string,vector<float>>> &queries, ofstream &outputFileint, int &N)
 {
     for (int i = 0; i < int(queries.size()); i++)
     {
@@ -83,7 +83,7 @@ int HyperCube::Run(vector<pair<string,vector<float>>> &queries, ofstream &output
 
         auto tTrue = chrono::duration_cast<chrono::milliseconds>(tStop - tStart);
 
-        this->print(outputFileint, cubeResult, trueResult, tCube.count(), tTrue.count(), this->data.Range_Search(queries[i].second, R),data.data,queries);
+        this->print(outputFileint, cubeResult, trueResult, tCube.count(), tTrue.count(),data.data,queries);
     }
 
     return 0;
@@ -212,7 +212,7 @@ list<string> HyperCube::Hamming_Distance(string s, int probes)
     return l;
 }
 
-void HyperCube::print(ofstream &outputfile,vector<pair<int, int>> cubeResult,vector<pair<int, int>> trueResult,const int64_t &tCube, const int64_t &tTrue,vector<pair<int, int>> rangeSearch,vector<pair<string,vector<float>>> &data,vector<pair<string,vector<float>>> &query)
+void HyperCube::print(ofstream &outputfile,vector<pair<int, int>> cubeResult,vector<pair<int, int>> trueResult,const int64_t &tCube, const int64_t &tTrue,vector<pair<string,vector<float>>> &data,vector<pair<string,vector<float>>> &query)
 {
     for (float j = 0; j < query.size(); j++)
     {
@@ -230,7 +230,6 @@ void HyperCube::print(ofstream &outputfile,vector<pair<int, int>> cubeResult,vec
         
         outputfile << "tCube: " << tCube << endl;
         outputfile << "tTrue: " << tTrue << endl;
-        //outputfile << "R-near neighbors: " << endl;
         outputfile << endl;
     }
     

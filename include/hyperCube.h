@@ -43,7 +43,6 @@ class HyperCube
             vector<pair<int, int>> cubeResult,
             vector<pair<int, int>> trueResult,
             const int64_t &tCube, const int64_t &tTrue,
-            vector<pair<int, int>> rangeSearch,
             vector<pair<string,vector<float>>> &data,
             vector<pair<string,vector<float>>> &query
             );
@@ -55,6 +54,6 @@ class HyperCube
         HyperCube(int k, int M, int probes, Data &data, float w = 10000);
         ~HyperCube();
 
-        int Run(vector<pair<string,vector<float>>> &queries, ofstream &outputFileint, int &N, int &R);
+        int Run(vector<pair<string,vector<float>>> &queries, ofstream &outputFileint, int &N);
         vector<pair<int, int>> exec_query(vector<float> &query, int &N);
 };

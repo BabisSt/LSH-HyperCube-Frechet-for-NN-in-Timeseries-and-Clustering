@@ -27,6 +27,7 @@ void hashTable::calculate_v(vector<vector<double>> &v,float k, float d)
 
     v.resize(k, vector<double>(d));
 
+    //cout << "k " << k << " d " << d << endl;
     for (float i = 0; i < k; i++)
     {
         for (float j = 0; j < d; j++)
@@ -57,6 +58,7 @@ uint32_t hashTable::calculate_h(vector<float> &point,vector<double> &v,float k)
     //cout << "point.siize" << point.size() << endl;
     for (float i = 0; i < point.size(); i++)
     {
+        //cout << point[i] << endl;
         calculate_t(this->w,k);
         if(this->t[i] != 0)
         {

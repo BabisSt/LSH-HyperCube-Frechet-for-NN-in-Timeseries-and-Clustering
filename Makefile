@@ -1,6 +1,6 @@
 CC = g++
 
-OFLAGS = -std=gnu++11 -O3
+OFLAGS = -std=c++14 -O3
 CFLAGS = -g3 -Wall -Wextra
 LDFLAGS =
 
@@ -80,6 +80,8 @@ valgrind-fr:
 	-i ./assets/dataset.csv \
 	-q ./assets/query.csv \
 	-o ./logs/logs.txt \
+	-metric discrete \
+	-delta 0.1 \
 	-N 10
 
 run-cluster-classic:
