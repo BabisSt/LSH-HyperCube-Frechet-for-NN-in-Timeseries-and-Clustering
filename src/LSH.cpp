@@ -7,15 +7,18 @@
 
 using namespace std;
 
-LSH::LSH(int k, int L, Data &data, float w, int r,float delta)
-    : k(k), L(L), data(data), w(w), r(r), delta(delta)
+LSH::LSH(int k, int L, Data &data, float w, int r,float delta,string algorithm)
+    : k(k), L(L), data(data), w(w), r(r), delta(delta), algorithm(algorithm)
 {
     this->M = pow(2, 32 / k);
     this->r = r;
     this->tables.resize(this->L);
     this->delta = delta;
     data.delta = this->delta;
+    this->algorithm = algorithm;
+    cout << this->algorithm << endl;
 
+    //cout << "data n  sto lsh "<< this->data.n << endl;
     for (int i = 0; i < L; i++)
     {
         this->tables[i] = new hashTable(this->data.n, this->k, this->data.d, this->w, this->M);         //data.n/32
@@ -50,7 +53,7 @@ int LSH::Run(vector<pair<string, vector<float>>> &queries, ofstream &outputFile,
 
         auto tTrue = chrono::duration_cast<chrono::milliseconds>(tStop - tStart);
 
-        this->print(outputFile, i, lshResult, trueResult, tLSH.count(), tTrue.count(), this->data.Range_Search(queries[i].second, R)); //tha allaksw ta queries se vector<pair<string,vector<float>>>
+        this->print(outputFile, lshResult, trueResult, tLSH.count(), tTrue.count(), this->data.Range_Search(queries[i].second, R),data.data,queries); //tha allaksw ta queries se vector<pair<string,vector<float>>>
     }
 
     return 0;
@@ -58,15 +61,21 @@ int LSH::Run(vector<pair<string, vector<float>>> &queries, ofstream &outputFile,
 
 void LSH::hashData()
 {
+    //cout << "n  edw"<< this->data.n << endl;
     for (int i = 0; i < this->L; i++)
     {
         for (int j = 0; j < this->data.n; j++)
         {
             float g = this->calculate_g(this->data.data[j].second, this->tables[i]);
+            //cout << this->data.data[j].first << endl; 
+            //cout << "L kai n " << this->L << this->data.n << endl;
 
             this->tables[i]->Insert_Item(g, j, this->data.data[j].second);
         }
+        //cout <<"telos" << endl;
     }
+    //cout << "EIMAI EDW? " << endl;
+
 }
 
 uint32_t LSH::calculate_g(vector<float> &points, hashTable *ht) 
@@ -77,6 +86,7 @@ uint32_t LSH::calculate_g(vector<float> &points, hashTable *ht)
     {
 
         g = g + (this->r * ht->calculate_h(points, ht->v[i], this->k));
+        //cout<< "g " << g << endl;
     }
 
     result = g % this->data.n; // this->Data.n == tableSize
@@ -105,24 +115,33 @@ vector<pair<int, int>> LSH::exec_query(vector<float> &query, int &N)
     return this->data.Get_Closest_Neighbors(query, possible_neighbors, N);
 }
 
-void LSH::print(ofstream &outputFile,int &query, vector<pair<int, int>> lshResult, vector<pair<int, int>> trueResult, const double &tLSH, const double &tTRUE, vector<pair<int, int>> rangeSearch)
+void LSH::print(ofstream &outputFile, vector<pair<int, int>> lshResult, vector<pair<int, int>> trueResult, const double &tLSH, const double &tTRUE, vector<pair<int, int>> rangeSearch, vector<pair<string,vector<float>>> &data,vector<pair<string,vector<float>>> &query)
 {
-    outputFile << "Query: " << query << endl;
+    //outputFile << "Query: " << query << endl;
 
-    for (int i = 0; i < int(lshResult.size()); i++)
+    for (float j = 0; j < query.size(); j++)
     {
-        outputFile << "Nearest neighbor-" << i << ": " << lshResult[i].second << endl;
-        outputFile << "distanceLSH: " << lshResult[i].first << endl;
-        outputFile << "distanceTrue: " << trueResult[i].first << endl
-                   << endl;
-    }
+        outputFile << "Query: " << query[j].first << endl;
+        outputFile << "Algorithm: " << this->algorithm <<endl;
+        for (int i = 0; i < int(lshResult.size()); i++)
+        {
+            //outputFile << "Query: " << data[i].first << endl;
+            //outputFile << "size: " << lshResult.size() << endl;
+            outputFile << "Approximate Nearest neighbor: " << data[j].first << ": " << lshResult[i].second << endl;
+            outputFile << "True Nearest neighbor: " << data[j].first << ": " << trueResult[i].second << endl;
+            outputFile << "distanceLSH: " << lshResult[i].first << endl;
+            outputFile << "distanceTrue: " << trueResult[i].first << endl
+                    << endl;
+        }
 
-    outputFile << "tLSH: " << tLSH << endl;
-    outputFile << "tTRUE: " << tTRUE << endl;
-    outputFile << "R-near neighbors: " << endl;
-
-    for (const auto &point : rangeSearch)
-    {
-        outputFile << point.second << endl;
+        outputFile << "tLSH: " << tLSH << endl;
+        outputFile << "tTRUE: " << tTRUE << endl;
+        outputFile << endl;
     }
+    // outputFile << "R-near neighbors: " << endl;
+
+    // for (const auto &point : rangeSearch)
+    // {
+    //     outputFile << point.second << endl;
+    // }
 }

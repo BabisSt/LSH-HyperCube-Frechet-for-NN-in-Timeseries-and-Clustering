@@ -50,11 +50,11 @@ void hashTable::calculate_t(uint32_t w,float k)
     
 }
 
-uint32_t hashTable::calculate_h(const vector<float> &point,const vector<double> &v,float k)
+uint32_t hashTable::calculate_h(vector<float> &point,vector<double> &v,float k)
 {
     float x=0 ;
     uint32_t result = 0;
-    
+    //cout << "point.siize" << point.size() << endl;
     for (float i = 0; i < point.size(); i++)
     {
         calculate_t(this->w,k);
@@ -63,6 +63,7 @@ uint32_t hashTable::calculate_h(const vector<float> &point,const vector<double> 
             x +=point[i] * abs(v[i]);
             //x= 10000;
             result = floor( double(x + this->t[i] )/ double(this->w) );
+            //cout << "result " << result << endl;
         }
     }
 

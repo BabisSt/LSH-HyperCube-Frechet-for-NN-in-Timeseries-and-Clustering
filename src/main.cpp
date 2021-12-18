@@ -20,6 +20,8 @@ int main(int argc, char *argv[])
     Input input;
 
     srand(time(NULL));
+    char* str = strdup("discrete");
+
 
     if (input.Parse_Input_Options(argc, argv) == -1) // pairnoume to input pou mas dinei o xrhsths
     {
@@ -94,9 +96,10 @@ int main(int argc, char *argv[])
 
             if (input.mode == _lsh) // an einai lsh
             {
+                //data.distanceFunction = data.EuclideanDistance(data.data,data.queries,0,0);
                 //cout << "edw" << endl;
-                LSH *lsh = new LSH(input.lsh_k, input.L, data, 10000,input.R,input.delta);
-
+                //cout << "data n sto main " << data.n << endl;
+                LSH *lsh = new LSH(input.lsh_k, input.L, data, 10000,input.R,input.delta,"lsh");
                 if(lsh->Run(data.queries, input.outputFile, input.N, input.R) == -1)
                 {
                     cerr << "LSH::Run() failed" << endl;
@@ -105,27 +108,31 @@ int main(int argc, char *argv[])
             }
             else if (input.mode == _frechet)
             {
-                char* str = "discrete";
-                if(input.metric == str)     //erwthma 2
+                //cout << "edw mesa?" << endl;
+                if(strcmp(input.metric,str) == 0)     //erwthma 2
                 {
-                    data.Init_Data_curve(data.data);
-                    data.Init_Query_curve(data.queries);
+                   
+                    data.Init_Data_Grid_curve(data.data);
+                    data.Init_Query_Grid_curve(data.queries);
 
+                    data.Min_max_filter(data.data_curve);
+                    data.Min_max_filter(data.query_curve);
+
+                    data.Padding(data.data_curve, data.query_curve);
                     // data.distanceFunction = data.FrechetDistance(data.data_curve,data.query_curve,data.data_curve.size(),data.query_curve.size()
-                    LSH *lsh = new LSH(input.lsh_k, input.L, data, 10000,input.R,input.delta);
-
+                    LSH *lsh = new LSH(input.lsh_k, input.L, data, 10000,input.R,input.delta,"frechet");
+                    
                     if(lsh->Run(data.queries, input.outputFile, input.N, input.R) == -1)
                     {
                         cerr << "LSH::Run() failed" << endl;
                     }
                     delete lsh;
-                    
                 }
                 else                    //erwthma 3
                 {
                     
-                    data.Filtering(data.data);
-                    data.Filtering(data.queries);
+                    data.Filtering(data.data,0.1);
+                    data.Filtering(data.queries,0.1);
 
                     data.Init_Data_Grid_curve(data.data);
                     data.Init_Query_Grid_curve(data.queries);
@@ -143,7 +150,8 @@ int main(int argc, char *argv[])
             }
             else                                            //an einai hypercube
             {
-                HyperCube *hc = new HyperCube(floor(log2(data.n)), input.M, input.probes, data);
+                //cout << "mesa eimai " << endl;
+                HyperCube *hc = new HyperCube(data.n, input.M, input.probes, data);
 
                 if(hc->Run(data.queries, input.outputFile, input.N, input.R) ==  -1)
                 {
@@ -162,7 +170,8 @@ int main(int argc, char *argv[])
 
             //data.Padding(data.data_grid_curve, data.query_grid_curve);
         }
-
+        free(input.metric);
+         free(str);
         string str;
         while (1) // epanalambanei gia diaforetikes ekteleseis tou xrhsth
         {
@@ -182,6 +191,6 @@ int main(int argc, char *argv[])
             }
         }
     }
-
+    
     return 0;
 }

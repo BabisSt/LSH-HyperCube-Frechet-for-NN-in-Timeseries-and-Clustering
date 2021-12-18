@@ -2,6 +2,9 @@
 
 #include <cmath>
 #include <vector>
+#include <string>
+#include <assert.h>
+#include <stdlib.h>
 
 #include "./data.h"
 #include "./hashTable.h"
@@ -17,6 +20,7 @@ class LSH
 
         int r;
         double delta;
+        
 
         vector<hashTable *> tables;
 
@@ -26,15 +30,17 @@ class LSH
 
         void print(
                 ofstream &outputFile,
-                int &query,
                 vector<pair<int,int>> lshResult,
                 vector<pair<int,int>> trueResult,
                 const double &tLSH, const double &tTRUE,
-                vector<pair<int,int>> rangeSearch
+                vector<pair<int,int>> rangeSearch,
+                vector<pair<string,vector<float>>> &data,
+                vector<pair<string,vector<float>>> &query
         ); 
     
     public:
-        LSH(int , int L, Data &data, float w = 10000, int r= 10000, float delta= 0.5);
+    string algorithm;
+        LSH(int , int L, Data &data, float w = 10000, int r= 10000, float delta= 0.5,string algorithm= "default");
         ~LSH();
 
         int Run(vector<pair<string, vector<float>>> &queries, ofstream &outputFile, int &N,int &R);

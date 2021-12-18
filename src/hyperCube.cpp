@@ -83,7 +83,7 @@ int HyperCube::Run(vector<pair<string,vector<float>>> &queries, ofstream &output
 
         auto tTrue = chrono::duration_cast<chrono::milliseconds>(tStop - tStart);
 
-        this->print(outputFileint, i, cubeResult, trueResult, tCube.count(), tTrue.count(), this->data.Range_Search(queries[i].second, R));
+        this->print(outputFileint, cubeResult, trueResult, tCube.count(), tTrue.count(), this->data.Range_Search(queries[i].second, R),data.data,queries);
     }
 
     return 0;
@@ -212,24 +212,26 @@ list<string> HyperCube::Hamming_Distance(string s, int probes)
     return l;
 }
 
-void HyperCube::print(ofstream &outputfile,int &query,vector<pair<int, int>> cubeResult,vector<pair<int, int>> trueResult,const int64_t &tCube, const int64_t &tTrue,vector<pair<int, int>> rangeSearch)
+void HyperCube::print(ofstream &outputfile,vector<pair<int, int>> cubeResult,vector<pair<int, int>> trueResult,const int64_t &tCube, const int64_t &tTrue,vector<pair<int, int>> rangeSearch,vector<pair<string,vector<float>>> &data,vector<pair<string,vector<float>>> &query)
 {
-    outputfile << "Query: " <<query << endl;
-
-    for (int i = 0; i < int(cubeResult.size()); i++)
+    for (float j = 0; j < query.size(); j++)
     {
-        outputfile << "Nearest neighbor-" << i << ": " << cubeResult[i].second << endl;
-        outputfile << "distanceCube: " << cubeResult[i].first << endl;
-        outputfile << "distanceTrue: " << trueResult[i].first << endl << endl;
-    }
+        outputfile << "Query: " <<query[j].first << endl;
+        outputfile << "Algorithm: hyperCube" <<endl;
 
-    outputfile << "tCube: " << tCube << endl;
-    outputfile << "tTrue: " << tTrue << endl;
-    outputfile << "R-near neighbors: " << endl;
-
-    for (const auto &point : rangeSearch)
-    {
-        outputfile << point.second << endl;
+        for (int i = 0; i < int(cubeResult.size()); i++)
+        {
+            outputfile << "Approximate Nearest neighbor: " << data[j].first << ": " << cubeResult[i].second << endl;
+            outputfile << "True Nearest neighbor: " << data[j].first << ": " << trueResult[i].second << endl;
+            outputfile << "distanceLSH: " << cubeResult[i].first << endl;
+            outputfile << "distanceTrue: " << trueResult[i].first << endl
+                    << endl;
+        }
+        
+        outputfile << "tCube: " << tCube << endl;
+        outputfile << "tTrue: " << tTrue << endl;
+        //outputfile << "R-near neighbors: " << endl;
+        outputfile << endl;
     }
     
 }

@@ -40,11 +40,13 @@ class HyperCube
 
         void print(
             ofstream &outputfile,
-            int &query,
             vector<pair<int, int>> cubeResult,
             vector<pair<int, int>> trueResult,
             const int64_t &tCube, const int64_t &tTrue,
-            vector<pair<int, int>> rangeSearch);
+            vector<pair<int, int>> rangeSearch,
+            vector<pair<string,vector<float>>> &data,
+            vector<pair<string,vector<float>>> &query
+            );
         
         void hashData();
         void HyperCube_Insert(string &s, int index, vector<float> &point);

@@ -13,19 +13,19 @@ using namespace std;
 class Data
 {
 private:
-    static double EuclideanDistance(vector<float> &p1, vector<float> &p2);
+
 
 public:
-    int n; // number of data
-    int d; // dimension
+    int n,nq; // number of data
+    int d,dq; // dimension
     int x;
     float delta;
     vector<float> t;
     vector<pair<string, vector<float>>> data;
     vector<pair<string, vector<float>>> queries;
 
-    vector<pair<string,vector<pair<float,float>>>> data_curve;  // erwthma 2
-    vector<pair<string,vector<pair<float,float>>>> query_curve; // erwthma 2
+    vector<pair<string,vector<float>>> data_curve;  // erwthma 2
+    vector<pair<string,vector<float>>> query_curve; // erwthma 2
 
     vector<pair<string,vector<float>>> data_grid_curve;          // erwthma 3 thn exw sthn euteia , prepei filtering
     vector<pair<string,vector<float>>> query_grid_curve;
@@ -35,23 +35,27 @@ public:
 
     Data();
 
+        static double EuclideanDistance(vector<float> &p1, vector<float> &p2,int i, int j);
+    static double FrechetDistance(vector<float> &curve_1, vector<float> &curve_2,int i, int j); // isws ginei private, thn eixa edw gia testing
+
     vector<float> compare(vector<vector<float>> data, vector<vector<float>> query);
 
     int Init_DataSet(ifstream &inputFile); // dhmiourgia tou dataset
-    int Init_Data_curve(vector<pair<string,vector<float>>> &data);
+    //int Init_Data_curve(vector<pair<string,vector<float>>> &data);
     int Init_Data_Grid_curve(vector<pair<string,vector<float>>> &data);
 
     int ReadQueryFile(ifstream &queryFile); // dhmourgia tou queryset
-    int Init_Query_curve(vector<pair<string,vector<float>>> &query);
+    //int Init_Query_curve(vector<pair<string,vector<float>>> &query);
     int Init_Query_Grid_curve(vector<pair<string,vector<float>>> &query);
 
-    int Filtering(vector<pair<string,vector<float>>> &curve);
+    int Filtering(vector<pair<string,vector<float>>> &curve,float epsilon);
     int Padding(vector<pair<string,vector<float>>> &data, vector<pair<string,vector<float>>> &query);
 
-    static double FrechetDistance(pair<string,vector<pair<float,float>>> &curve_1, pair<string,vector<pair<float,float>>> &curve_2,int i, int j); // isws ginei private, thn eixa edw gia testing
-    double (*distanceFunction)(vector<float> &p1,vector<float> &p2);
+    
+    double (*distanceFunction)(vector<float> &p1,vector<float> &p2,int i, int j);
 
     vector<pair<int, int>> Range_Search(vector<float> query, float R);
+    int Min_max_filter(vector<pair<string, vector<float>>> &curve);
 
     int Run_Frechet(pair<string,vector<pair<float,float>>> &curve_1, pair<string,vector<pair<float,float>>> &curve_2);
 

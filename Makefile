@@ -1,6 +1,6 @@
 CC = g++
 
-OFLAGS = -std=c++11 -O3
+OFLAGS = -std=gnu++11 -O3
 CFLAGS = -g3 -Wall -Wextra
 LDFLAGS =
 
@@ -44,7 +44,7 @@ run-lsh:
 	-i ./assets/dataset.csv \
 	-q ./assets/query.csv \
 	-o ./logs/logs.txt \
-	-N 50
+	-N 10
 
 valgrind-lsh:
 	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(BDIR)/$(EXEC1) \
@@ -115,3 +115,4 @@ clean:
 	rm -f $(BDIR)/$(EXEC1)
 	rm -f $(BDIR)/$(EXEC2)
 	rm -f $(BDIR)/$(EXEC3)
+	rm -f $(BDIR)/$(EXEC4)

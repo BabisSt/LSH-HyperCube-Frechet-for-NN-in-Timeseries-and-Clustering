@@ -25,7 +25,7 @@ class hashTable
         hashTable(int indexSize, float k, float d, float w,float M);
         ~hashTable();
         
-        uint32_t calculate_h(const vector<float> &point,const vector<double> &v,float k);
+        uint32_t calculate_h(vector<float> &point,vector<double> &v,float k);
 
         uint32_t calculate_grid();
 
