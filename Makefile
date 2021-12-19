@@ -14,10 +14,10 @@ EXEC2 = cube
 EXEC3 = cluster
 EXEC4 = frechet
 
-_DEPS = data.h input.h LSH.h hashTable.h hyperCube.h
+_DEPS = data.h input.h LSH.h hashTable.h hyperCube.h kmeansplusplus.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o input.o data.o LSH.o hashTable.o hyperCube.o
+_OBJ = main.o input.o data.o LSH.o hashTable.o hyperCube.o kmeansplusplus.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
@@ -86,28 +86,28 @@ valgrind-fr:
 
 run-cluster-classic:
 	./$(BDIR)/$(EXEC3) \
-	-i ./assets/ok \
+	-i ./assets/dataset.csv \
 	-c ./cluster.conf \
 	-o ./logs/logs.txt \
 	-m Classic
 
 run-cluster-lsh:
 	./$(BDIR)/$(EXEC3) \
-	-i ./assets/ok \
+	-i ./assets/dataset.csv \
 	-c ./cluster.conf \
 	-o ./logs/logs.txt \
 	-m LSH
 
 run-cluster-hc:
 	./$(BDIR)/$(EXEC3) \
-	-i ./assets/ok \
+	-i ./assets/dataset.csv \
 	-c ./cluster.conf \
 	-o ./logs/logs.txt \
 	-m Hypercube
 
 valgrind-cluster:
 	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(BDIR)/$(EXEC3) \
-	-i ./assets/ok \
+	-i ./assets/dataset.csv \
 	-c ./cluster.conf \
 	-o ./logs/logs.txt \
 	-m LSH

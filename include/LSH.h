@@ -45,5 +45,5 @@ class LSH
         int Run(vector<pair<string, vector<float>>> &queries, ofstream &outputFile, int &N);
 
         vector<pair<int,int>>
-        exec_query(vector<float> &query, int &N);
+        exec_query(vector<float> &query, const int &N);
 };

@@ -111,7 +111,7 @@ void HyperCube::HyperCube_Insert(string &s, int index, vector<float> &point)
     this->ht->Insert_Item(stoi(s, nullptr, 2), index, point);
 }
 
-vector<pair<int, int>> HyperCube::exec_query( vector<float> &query, int &N)
+vector<pair<int, int>> HyperCube::exec_query( vector<float> &query,const int &N)
 {
     vector<pair<int, vector<float>>> possible_neighbors;
     list<string> bucketList;

@@ -5,9 +5,10 @@
 #include <math.h>
 
 #include "../include/input.h"
-#include "../include/data.h"
-#include "../include/LSH.h"
-#include "../include/hyperCube.h"
+// #include "../include/data.h"
+// #include "../include/LSH.h"
+// #include "../include/hyperCube.h"
+#include "../include/kmeansplusplus.h"
 
 
 
@@ -48,29 +49,29 @@ int main(int argc, char *argv[])
 
         if (input.mode == _cluster) // me cluster
         {
-            // kmeansplusplus *kmeans;
+            kmeansplusplus *kmeans;
+            cout << "EDW?" << endl;
+            if(!strcmp(input.method, "Classic"))                        //klassikh periptwsh gia kmeansplusplus
+            {
+                kmeans = new kmeansplusplus(input.nClusters, input.complete, data);
+            }
+            else if(!strcmp(input.method, "LSH"))                      //gia LSH
+            {
+                kmeans = new kmeansplusplus(input.nClusters, input.complete, input.lsh_k, input.L, data);
+            }
+            else if(!strcmp(input.method, "Hypercube"))                 //gia hypercube
+            {
+                kmeans = new kmeansplusplus(input.nClusters, input.complete, input.cube_k, input.M, input.probes, data);
+            }
+            else
+            {
+                cout << "Method: " << input.method << " not recognized " << endl;
+                return -1;
+            }
 
-            // if(!strcmp(input.method, "Classic"))                        //klassikh periptwsh gia kmeansplusplus
-            // {
-            //     kmeans = new kmeansplusplus(input.nClusters, input.complete, data);
-            // }
-            // else if(!strcmp(input.method, "LSH"))                      //gia LSH
-            // {
-            //     kmeans = new kmeansplusplus(input.nClusters, input.complete, input.lsh_k, input.L, data);
-            // }
-            // else if(!strcmp(input.method, "HyperCube"))                 //gia hypercube
-            // {
-            //     kmeans = new kmeansplusplus(input.nClusters, input.complete, input.cube_k, input.M, input.probes, data);
-            // }
-            // else
-            // {
-            //     cout << "Method: " << input.method << " not recognized " << endl;
-            //     return -1;
-            // }
+            kmeans->Run(input.outputFile);
 
-            // kmeans->Run(input.outputFile);
-
-            // delete kmeans;
+            delete kmeans;
         }
         else // xwris cluster gia queries
         {

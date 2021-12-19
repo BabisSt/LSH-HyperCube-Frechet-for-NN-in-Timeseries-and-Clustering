@@ -267,7 +267,7 @@ vector<pair<int, int>> Data::Range_Search(vector<float> query, float R)
     return result;
 }
 
-vector<pair<int, int>> Data::Get_Closest_Neighbors( vector<float> &query, vector<pair<int, vector<float>>> &data, int &N)
+vector<pair<int, int>> Data::Get_Closest_Neighbors( vector<float> &query, vector<pair<int, vector<float>>> &data, const int &N)
 {
     vector<pair<int, int>> result;
 
@@ -294,7 +294,7 @@ vector<pair<int, int>> Data::Get_Closest_Neighbors( vector<float> &query, vector
     return result;
 }
 
-vector<pair<int, int>> Data::Brute_Force_Neighbors(vector<float> &query, int &N)
+vector<pair<int, int>> Data::Brute_Force_Neighbors(vector<float> &query, const int &N)
 {
     vector<pair<int, int>> result;
 

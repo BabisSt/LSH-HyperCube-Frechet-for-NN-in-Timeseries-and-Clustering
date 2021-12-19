@@ -57,6 +57,6 @@ public:
 
     int Run_Frechet(pair<string,vector<pair<float,float>>> &curve_1, pair<string,vector<pair<float,float>>> &curve_2);
 
-    vector<pair<int, int>> Get_Closest_Neighbors(vector<float> &query, vector<pair<int, vector<float>>> &data, int &N);
-    vector<pair<int, int>> Brute_Force_Neighbors(vector<float> &query,int &N);
+    vector<pair<int, int>> Get_Closest_Neighbors(vector<float> &query, vector<pair<int, vector<float>>> &data, const int &N);
+    vector<pair<int, int>> Brute_Force_Neighbors(vector<float> &query,const int &N);
 };

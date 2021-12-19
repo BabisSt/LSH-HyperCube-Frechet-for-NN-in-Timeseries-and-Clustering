@@ -55,5 +55,5 @@ class HyperCube
         ~HyperCube();
 
         int Run(vector<pair<string,vector<float>>> &queries, ofstream &outputFileint, int &N);
-        vector<pair<int, int>> exec_query(vector<float> &query, int &N);
+        vector<pair<int, int>> exec_query(vector<float> &query,const  int &N);
 };

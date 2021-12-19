@@ -90,7 +90,7 @@ uint32_t LSH::calculate_g(vector<float> &points, hashTable *ht)
     return result;
 }
 
-vector<pair<int, int>> LSH::exec_query(vector<float> &query, int &N)
+vector<pair<int, int>> LSH::exec_query(vector<float> &query, const int &N)
 {
     unordered_set<int> pickedPoints;
     vector<pair<int, vector<float>>> possible_neighbors;
