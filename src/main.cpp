@@ -44,13 +44,19 @@ int main(int argc, char *argv[])
         if (input.mode == _cluster) // me cluster
         {
             kmeansplusplus *kmeans;
-            if (!strcmp(input.method, "Classic")) // Classic periptwsh gia kmeans++ (Lloyd's)
+            if (!strcmp(input.method, "Classic") || !strcmp(input.method, "Classic_Fr")) // Classic periptwsh gia kmeans++ (Lloyd's)
             {
-                kmeans = new kmeansplusplus(input.nClusters, input.complete, data);
+                if (strcmp(input.method, "Classic"))
+                    kmeans = new kmeansplusplus(input.nClusters, input.complete, data, 0);
+                else if (strcmp(input.method, "Classic_Fr"))
+                    kmeans = new kmeansplusplus(input.nClusters, input.complete, data, 0);
             }
-            else if (!strcmp(input.method, "LSH")) // gia LSH
+            else if (!strcmp(input.method, "LSH") || !strcmp(input.method, "LSH_Fr")) // gia LSH
             {
-                kmeans = new kmeansplusplus(input.nClusters, input.complete, input.lsh_k, input.L, data);
+                if (strcmp(input.method, "LSH"))
+                    kmeans = new kmeansplusplus(input.nClusters, input.complete, input.lsh_k, input.L, data, 0);
+                else if (strcmp(input.method, "LSH_Fr"))
+                    kmeans = new kmeansplusplus(input.nClusters, input.complete, input.lsh_k, input.L, data, 1);
             }
             else if (!strcmp(input.method, "Hypercube")) // gia hypercube
             {
@@ -134,7 +140,7 @@ int main(int argc, char *argv[])
             else // an einai hypercube
             {
 
-                HyperCube *hc = new HyperCube(data.n, input.M, input.probes, data);
+                HyperCube *hc = new HyperCube(floor(log2(data.n)), input.M, input.probes, data);
 
                 if (hc->Run(data.queries, input.outputFile, input.N) == -1)
                 {

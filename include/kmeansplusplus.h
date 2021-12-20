@@ -47,8 +47,8 @@ private:
     vector<double> Silouette(vector<vector<int>> clusters);
 
 public:
-    kmeansplusplus(const int &clusters, const bool &complete, Data &data);
-    kmeansplusplus(const int &clusters, const bool &complete, const int &lsh_k, const int &L, Data &data);
+    kmeansplusplus(const int &clusters, const bool &complete, Data &data, const int frechet);
+    kmeansplusplus(const int &clusters, const bool &complete, const int &lsh_k, const int &L, Data &data, const int frechet);
     kmeansplusplus(const int &clusters, const bool &complete, const int &cube_k, const int &M, const int &probes, Data &data);
     ~kmeansplusplus();
 

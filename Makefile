@@ -62,8 +62,8 @@ run-hc:
 
 valgrind-hc:
 	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(BDIR)/$(EXEC2) \
-	-i ./assets/dataset.csv \
-	-q ./assets/query.csv \
+	-i ./assets/nasd_input.csv \
+	-q ./assets/nasd_query.csv \
 	-o ./logs/logs.txt \
 	-N 10
 
@@ -96,7 +96,7 @@ run-cluster-classic-fr:
 	-i ./assets/nasd_input.csv \
 	-c ./cluster.conf \
 	-o ./logs/logs.txt \
-	-m Classic
+	-m Classic_Fr
 
 run-cluster-lsh:
 	./$(BDIR)/$(EXEC3) \
@@ -110,7 +110,7 @@ run-cluster-lsh-fr:
 	-i ./assets/nasd_input.csv \
 	-c ./cluster.conf \
 	-o ./logs/logs.txt \
-	-m LSH
+	-m LSH_Fr
 
 run-cluster-hc:
 	./$(BDIR)/$(EXEC3) \
@@ -124,7 +124,7 @@ valgrind-cluster:
 	-i ./assets/nasd_input.csv \
 	-c ./cluster.conf \
 	-o ./logs/logs.txt \
-	-m LSH
+	-m Classic_Fr
 
 clean:
 	rm -f $(ODIR)/*.o

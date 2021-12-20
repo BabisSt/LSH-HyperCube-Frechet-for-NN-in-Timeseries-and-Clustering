@@ -12,17 +12,23 @@
 using namespace std;
 
 // classic
-kmeansplusplus::kmeansplusplus(const int &mClusters, const bool &complete, Data &data)
+kmeansplusplus::kmeansplusplus(const int &mClusters, const bool &complete, Data &data, const int frechet)
     : nClusters(mClusters), complete(complete), data(data)
 {
-    this->method = _Classic;
+    if (frechet == 0)
+        this->method = _Classic;
+    else if (frechet == 1)
+        this->method = _Classic_Fr;
 }
 
 // lsh
-kmeansplusplus::kmeansplusplus(const int &Clusters, const bool &complete, const int &lsh_k, const int &L, Data &data)
+kmeansplusplus::kmeansplusplus(const int &Clusters, const bool &complete, const int &lsh_k, const int &L, Data &data, const int frechet)
     : nClusters(Clusters), complete(complete), lsh_k(lsh_k), L(L), data(data)
 {
-    this->method = _LSH;
+    if (frechet == 0)
+        this->method = _LSH;
+    else if (frechet == 1)
+        this->method = _LSH_Fr;
 
     this->lsh = new LSH(lsh_k, L, data);
 }
@@ -93,7 +99,7 @@ int kmeansplusplus::Run(ofstream &outputFile)
                 mean /= clusters[i].size();
                 clusterChange += abs(int(this->centroids[i].second[j]) - mean);
                 //  cout << "cluster" << clusterChange << "cent " << this->centroids[i].second[j] << " mean " << mean << endl;
-                // this->centroids[i].second[j] = float(mean);
+                this->centroids[i].second[j] = float(mean);
             }
 
             totalChange += clusterChange;
