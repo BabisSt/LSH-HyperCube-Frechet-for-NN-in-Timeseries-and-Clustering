@@ -1,12 +1,110 @@
-Algorithm: HyperCube
-CLUSTER-0 {size :8, centroid: [50, 50, 50, 50, 50, 51, 52, 53, 53, 53, 54, 53, 52, 52, 52, 51, 51, 52, 51, 52, 52, 52, 51, 51, 52, 52, 52, 53, 52, 53, 53, 53, 54, 55, 56, 56, 57, 58, 58, 58, 58, 59, 59, 59, 59, 60, 60, 61, 60, 61, 57, 57, 57, 57, 56, 55, 56, 56, 56, 55, 55, 54, 54, 54, 54, 55, 55, 56, 55, 55, 55, 55, 55, 55, 55, 56, 58, 58, 59, 60, 60, 60, 61, 60, 60, 60, 59, 60, 61, 60, 60, 61, 60, 60, 61, 60, 60, 60, 60, 59, 59, 59, 58, 58, 59, 58, 59, 59, 57, 57, 59, 59, 58, 58, 58, 59, 58, 58, 58, 58, ]}
+Query: aaon
+Algorithm: hyperCube
+Approximate Nearest neighbor: a: 8
+True Nearest neighbor: a: 8
+distanceLSH: 81
+distanceTrue: 81
 
-CLUSTER-1 {size :2, centroid: [5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 4, 4, 5, 4, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 5, 6, 5, 6, 6, 6, 5, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 7, 6, 7, ]}
+Approximate Nearest neighbor: a: 1
+True Nearest neighbor: a: 1
+distanceLSH: 98
+distanceTrue: 98
 
-CLUSTER-2 {size :0, centroid: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]}
+Approximate Nearest neighbor: a: 5
+True Nearest neighbor: a: 5
+distanceLSH: 154
+distanceTrue: 154
 
-CLUSTER-3 {size :0, centroid: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]}
+Approximate Nearest neighbor: a: 2
+True Nearest neighbor: a: 2
+distanceLSH: 252
+distanceTrue: 252
 
-clustering_time: 28
-Silouetter: [-0.317019, -1, -nan, -nan, stotal = -nan]
+Approximate Nearest neighbor: a: 4
+True Nearest neighbor: a: 4
+distanceLSH: 292
+distanceTrue: 292
+
+Approximate Nearest neighbor: a: 3
+True Nearest neighbor: a: 3
+distanceLSH: 300
+distanceTrue: 300
+
+Approximate Nearest neighbor: a: 0
+True Nearest neighbor: a: 0
+distanceLSH: 310
+distanceTrue: 310
+
+Approximate Nearest neighbor: a: 9
+True Nearest neighbor: a: 7
+distanceLSH: 354
+distanceTrue: 343
+
+Approximate Nearest neighbor: a: 6
+True Nearest neighbor: a: 9
+distanceLSH: 584
+distanceTrue: 354
+
+tCube: 68
+tTrue: 4
+
+Query: aap
+Algorithm: hyperCube
+Approximate Nearest neighbor: aa: 8
+True Nearest neighbor: aa: 8
+distanceLSH: 81
+distanceTrue: 81
+
+Approximate Nearest neighbor: aa: 1
+True Nearest neighbor: aa: 1
+distanceLSH: 98
+distanceTrue: 98
+
+Approximate Nearest neighbor: aa: 5
+True Nearest neighbor: aa: 5
+distanceLSH: 154
+distanceTrue: 154
+
+Approximate Nearest neighbor: aa: 2
+True Nearest neighbor: aa: 2
+distanceLSH: 252
+distanceTrue: 252
+
+Approximate Nearest neighbor: aa: 4
+True Nearest neighbor: aa: 4
+distanceLSH: 292
+distanceTrue: 292
+
+Approximate Nearest neighbor: aa: 3
+True Nearest neighbor: aa: 3
+distanceLSH: 300
+distanceTrue: 300
+
+Approximate Nearest neighbor: aa: 0
+True Nearest neighbor: aa: 0
+distanceLSH: 310
+distanceTrue: 310
+
+Approximate Nearest neighbor: aa: 9
+True Nearest neighbor: aa: 7
+distanceLSH: 354
+distanceTrue: 343
+
+Approximate Nearest neighbor: aa: 6
+True Nearest neighbor: aa: 9
+distanceLSH: 584
+distanceTrue: 354
+
+tCube: 68
+tTrue: 4
+
+Query: aaon
+Algorithm: hyperCube
+tCube: 42
+tTrue: 0
+
+Query: aap
+Algorithm: hyperCube
+tCube: 42
+tTrue: 0
 

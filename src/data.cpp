@@ -188,7 +188,6 @@ int Data::Padding(vector<pair<string, vector<float>>> &data, vector<pair<string,
 
 int Data::Min_max_filter(vector<pair<string, vector<float>>> &curve)    // same as filtering but for Aii, removing dups
 {
-    //cout << "mesa" << endl;
     for (float r = 0; r < curve.size(); r++)
     {
         for (float j = 0; j < curve[r].second.size(); j++)

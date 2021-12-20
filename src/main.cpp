@@ -5,12 +5,7 @@
 #include <math.h>
 
 #include "../include/input.h"
-// #include "../include/data.h"
-// #include "../include/LSH.h"
-// #include "../include/hyperCube.h"
 #include "../include/kmeansplusplus.h"
-
-
 
 using namespace std;
 
@@ -21,8 +16,7 @@ int main(int argc, char *argv[])
     Input input;
 
     srand(time(NULL));
-    char* str = strdup("discrete");
-
+    char *str = strdup("discrete");
 
     if (input.Parse_Input_Options(argc, argv) == -1) // pairnoume to input pou mas dinei o xrhsths
     {
@@ -41,7 +35,7 @@ int main(int argc, char *argv[])
             input.Open_Input_File(file); // anoigei to arxeio
         }
 
-        if (data.Init_DataSet(input.inputFile) == -1) // diabazei ta dedomena tou arxeio kai ta ftiaxnei
+        if (data.Init_DataSet(input.inputFile) == -1) // Reads DataFile
         {
             cerr << "Data::InitDataset() failed" << endl;
             return -1;
@@ -50,16 +44,15 @@ int main(int argc, char *argv[])
         if (input.mode == _cluster) // me cluster
         {
             kmeansplusplus *kmeans;
-            cout << "EDW?" << endl;
-            if(!strcmp(input.method, "Classic"))                        //klassikh periptwsh gia kmeansplusplus
+            if (!strcmp(input.method, "Classic")) // Classic periptwsh gia kmeans++ (Lloyd's)
             {
                 kmeans = new kmeansplusplus(input.nClusters, input.complete, data);
             }
-            else if(!strcmp(input.method, "LSH"))                      //gia LSH
+            else if (!strcmp(input.method, "LSH")) // gia LSH
             {
                 kmeans = new kmeansplusplus(input.nClusters, input.complete, input.lsh_k, input.L, data);
             }
-            else if(!strcmp(input.method, "Hypercube"))                 //gia hypercube
+            else if (!strcmp(input.method, "Hypercube")) // gia hypercube
             {
                 kmeans = new kmeansplusplus(input.nClusters, input.complete, input.cube_k, input.M, input.probes, data);
             }
@@ -75,14 +68,14 @@ int main(int argc, char *argv[])
         }
         else // xwris cluster gia queries
         {
-            while (!input.queryFile.is_open()) // pairnoume to arxeio queries
+            while (!input.queryFile.is_open()) // dinoume path gia to queries
             {
                 cout << "Please provide a path to a query file" << endl;
                 cin >> file;
                 input.Open_Query_File(file);
             }
 
-            if (data.ReadQueryFile(input.queryFile) == -1) // to diabazoume
+            if (data.ReadQueryFile(input.queryFile) == -1) // Reads QueryFile
             {
                 cerr << "Data::ReadQueryFile() failed" << endl;
                 return -1;
@@ -90,8 +83,8 @@ int main(int argc, char *argv[])
 
             if (input.mode == _lsh) // an einai lsh
             {
-                LSH *lsh = new LSH(input.lsh_k, input.L, data, 10000,input.R,input.delta,"lsh");
-                if(lsh->Run(data.queries, input.outputFile, input.N) == -1)
+                LSH *lsh = new LSH(input.lsh_k, input.L, data, 10000, input.R, input.delta, "lsh");
+                if (lsh->Run(data.queries, input.outputFile, input.N) == -1)
                 {
                     cerr << "LSH::Run() failed" << endl;
                 }
@@ -99,54 +92,51 @@ int main(int argc, char *argv[])
             }
             else if (input.mode == _frechet)
             {
-                //cout << "edw mesa?" << endl;
-                if(strcmp(input.metric,str) == 0)     //erwthma 2
+                if (strcmp(input.metric, str) == 0) // erwthma 2
                 {
-                   
+
                     data.Init_Data_Grid_curve(data.data);
                     data.Init_Query_Grid_curve(data.queries);
-                    
 
                     data.Min_max_filter(data.data_curve);
                     data.Min_max_filter(data.query_curve);
 
-
                     data.Padding(data.data_curve, data.query_curve);
                     // data.distanceFunction = data.FrechetDistance(data.data_curve,data.query_curve,data.data_curve.size(),data.query_curve.size()
-                    LSH *lsh = new LSH(input.lsh_k, input.L, data, 10000,input.R,input.delta,"frechet");
-                    
-                    if(lsh->Run(data.queries, input.outputFile, input.N) == -1)
+                    LSH *lsh = new LSH(input.lsh_k, input.L, data, 10000, input.R, input.delta, "frechet");
+
+                    if (lsh->Run(data.queries, input.outputFile, input.N) == -1)
                     {
                         cerr << "LSH::Run() failed" << endl;
                     }
                     delete lsh;
                 }
-                else                    //erwthma 3
+                else // Aiii
                 {
-                    
-                    data.Filtering(data.data,0.1);
-                    data.Filtering(data.queries,0.1);
+
+                    data.Filtering(data.data, 0.1);
+                    data.Filtering(data.queries, 0.1);
 
                     data.Init_Data_Grid_curve(data.data);
                     data.Init_Query_Grid_curve(data.queries);
 
                     data.Padding(data.data_grid_curve, data.query_grid_curve);
-                
-                    LSH *lsh = new LSH(input.lsh_k, input.L, data, 10000,input.R,input.delta);
 
-                    if(lsh->Run(data.queries, input.outputFile, input.N) == -1)
+                    LSH *lsh = new LSH(input.lsh_k, input.L, data, 10000, input.R, input.delta);
+
+                    if (lsh->Run(data.queries, input.outputFile, input.N) == -1)
                     {
                         cerr << "LSH::Run() failed" << endl;
                     }
                     delete lsh;
                 }
             }
-            else                                            //an einai hypercube
+            else // an einai hypercube
             {
-                
+
                 HyperCube *hc = new HyperCube(data.n, input.M, input.probes, data);
 
-                if(hc->Run(data.queries, input.outputFile, input.N) ==  -1)
+                if (hc->Run(data.queries, input.outputFile, input.N) == -1)
                 {
                     cerr << "HyperCube::hyperCubeRun() failed" << endl;
                 }
@@ -176,6 +166,6 @@ int main(int argc, char *argv[])
             }
         }
     }
-    
+
     return 0;
 }

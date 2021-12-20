@@ -41,8 +41,8 @@ $(BDIR)/$(EXEC4): $(OBJ)
 
 run-lsh:
 	./$(BDIR)/$(EXEC1) \
-	-i ./assets/dataset.csv \
-	-q ./assets/query.csv \
+	-i ./assets/nasd_input.csv \
+	-q ./assets/nasd_query.csv \
 	-o ./logs/logs.txt \
 	-N 10
 
@@ -55,8 +55,8 @@ valgrind-lsh:
 
 run-hc:
 	./$(BDIR)/$(EXEC2) \
-	-i ./assets/dataset.csv \
-	-q ./assets/query.csv \
+	-i ./assets/nasd_input.csv \
+	-q ./assets/nasd_query.csv \
 	-o ./logs/logs.txt \
 	-N 50
 
@@ -69,8 +69,8 @@ valgrind-hc:
 
 run-fr:
 	./$(BDIR)/$(EXEC4) \
-	-i ./assets/dataset.csv \
-	-q ./assets/query.csv \
+	-i ./assets/nasd_input.csv \
+	-q ./assets/nasd_query.csv \
 	-o ./logs/logs.txt \
 	-delta 0.5 \
 	-N 50
@@ -86,28 +86,42 @@ valgrind-fr:
 
 run-cluster-classic:
 	./$(BDIR)/$(EXEC3) \
-	-i ./assets/dataset.csv \
+	-i ./assets/nasd_input.csv \
+	-c ./cluster.conf \
+	-o ./logs/logs.txt \
+	-m Classic
+
+run-cluster-classic-fr:
+	./$(BDIR)/$(EXEC3) \
+	-i ./assets/nasd_input.csv \
 	-c ./cluster.conf \
 	-o ./logs/logs.txt \
 	-m Classic
 
 run-cluster-lsh:
 	./$(BDIR)/$(EXEC3) \
-	-i ./assets/dataset.csv \
+	-i ./assets/nasd_input.csv \
+	-c ./cluster.conf \
+	-o ./logs/logs.txt \
+	-m LSH
+
+run-cluster-lsh-fr:
+	./$(BDIR)/$(EXEC3) \
+	-i ./assets/nasd_input.csv \
 	-c ./cluster.conf \
 	-o ./logs/logs.txt \
 	-m LSH
 
 run-cluster-hc:
 	./$(BDIR)/$(EXEC3) \
-	-i ./assets/dataset.csv \
+	-i ./assets/nasd_input.csv \
 	-c ./cluster.conf \
 	-o ./logs/logs.txt \
 	-m Hypercube
 
 valgrind-cluster:
 	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(BDIR)/$(EXEC3) \
-	-i ./assets/dataset.csv \
+	-i ./assets/nasd_input.csv \
 	-c ./cluster.conf \
 	-o ./logs/logs.txt \
 	-m LSH
