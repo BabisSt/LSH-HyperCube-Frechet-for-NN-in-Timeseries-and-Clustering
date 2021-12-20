@@ -61,7 +61,6 @@ int kmeansplusplus::Run(ofstream &outputFile)
         case _Classic:
             clusters = this->LloydsClustering();
             break;
-        
         case _LSH:
             clusters = this->LSHClustering();
             break;
@@ -84,7 +83,6 @@ int kmeansplusplus::Run(ofstream &outputFile)
                     mean += int(this->data.data[index].second[j]);
                 }
                 
-
                 mean /= clusters[i].size();
                 clusterChange += abs(int(this->centroids[i].second[j]) - mean);
                 //cout << "cluster" << clusterChange << "cent " << this->centroids[i].second[j] << " mean " << mean<< endl;
