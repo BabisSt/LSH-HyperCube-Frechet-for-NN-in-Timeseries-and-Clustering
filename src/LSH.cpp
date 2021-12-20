@@ -21,7 +21,7 @@ LSH::LSH(int k, int L, Data &data, float w, int r,float delta,string algorithm)
     
     for (int i = 0; i < L; i++)
     {
-        this->tables[i] = new hashTable(this->data.n, this->k, this->data.d, this->w, this->M);         //data.n/32
+        this->tables[i] = new hashTable(this->data.n/32, this->k, this->data.d, this->w, this->M);         //data.n/32
     }
 
     

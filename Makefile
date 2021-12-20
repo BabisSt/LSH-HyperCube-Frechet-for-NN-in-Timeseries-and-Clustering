@@ -41,8 +41,8 @@ $(BDIR)/$(EXEC4): $(OBJ)
 
 run-lsh:
 	./$(BDIR)/$(EXEC1) \
-	-i ./assets/nasd_input.csv \
-	-q ./assets/nasd_query.csv \
+	-i ./assets/dataset.csv \
+	-q ./assets/query.csv \
 	-o ./logs/logs.txt \
 	-N 10
 
@@ -55,25 +55,25 @@ valgrind-lsh:
 
 run-hc:
 	./$(BDIR)/$(EXEC2) \
-	-i ./assets/nasd_input.csv \
-	-q ./assets/nasd_query.csv \
+	-i ./assets/dataset.csv \
+	-q ./assets/query.csv \
 	-o ./logs/logs.txt \
-	-N 50
+	-N 10
 
 valgrind-hc:
 	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(BDIR)/$(EXEC2) \
-	-i ./assets/nasd_input.csv \
-	-q ./assets/nasd_query.csv \
+	-i ./assets/dataset.csv \
+	-q ./assets/query.csv \
 	-o ./logs/logs.txt \
 	-N 10
 
 run-fr:
 	./$(BDIR)/$(EXEC4) \
-	-i ./assets/nasd_input.csv \
-	-q ./assets/nasd_query.csv \
+	-i ./assets/dataset.csv \
+	-q ./assets/query.csv \
 	-o ./logs/logs.txt \
 	-delta 0.5 \
-	-N 50
+	-N 10
 
 valgrind-fr:
 	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(BDIR)/$(EXEC4) \
@@ -81,50 +81,50 @@ valgrind-fr:
 	-q ./assets/query.csv \
 	-o ./logs/logs.txt \
 	-metric discrete \
-	-delta 0.1 \
+	-delta 0.5 \
 	-N 10
 
 run-cluster-classic:
 	./$(BDIR)/$(EXEC3) \
-	-i ./assets/nasd_input.csv \
+	-i ./assets/dataset.csv \
 	-c ./cluster.conf \
 	-o ./logs/logs.txt \
 	-m Classic
 
 run-cluster-classic-fr:
 	./$(BDIR)/$(EXEC3) \
-	-i ./assets/nasd_input.csv \
+	-i ./assets/dataset.csv \
 	-c ./cluster.conf \
 	-o ./logs/logs.txt \
-	-m Classic_Fr
+	-m Classic
 
 run-cluster-lsh:
 	./$(BDIR)/$(EXEC3) \
-	-i ./assets/nasd_input.csv \
+	-i ./assets/dataset.csv \
 	-c ./cluster.conf \
 	-o ./logs/logs.txt \
 	-m LSH
 
 run-cluster-lsh-fr:
 	./$(BDIR)/$(EXEC3) \
-	-i ./assets/nasd_input.csv \
+	-i ./assets/dataset.csv \
 	-c ./cluster.conf \
 	-o ./logs/logs.txt \
-	-m LSH_Fr
+	-m LSH
 
 run-cluster-hc:
 	./$(BDIR)/$(EXEC3) \
-	-i ./assets/nasd_input.csv \
+	-i ./assets/dataset.csv \
 	-c ./cluster.conf \
 	-o ./logs/logs.txt \
 	-m Hypercube
 
 valgrind-cluster:
 	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(BDIR)/$(EXEC3) \
-	-i ./assets/nasd_input.csv \
+	-i ./assets/dataset.csv \
 	-c ./cluster.conf \
 	-o ./logs/logs.txt \
-	-m Classic_Fr
+	-m LSH
 
 clean:
 	rm -f $(ODIR)/*.o

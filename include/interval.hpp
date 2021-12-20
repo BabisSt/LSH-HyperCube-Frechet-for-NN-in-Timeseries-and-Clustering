@@ -25,7 +25,7 @@ public:
     Interval(const parameter_t begin, const parameter_t end) : beg{begin}, en{end} {}
 
     inline bool operator<(const Interval &other) const {
-        return (beg < other.begin()) || ((beg == other.begin()) && (en < other.end()));
+        return (beg < other.begin()) or ((beg == other.begin()) and (en < other.end()));
     }
 
     inline bool empty() const { 
@@ -34,11 +34,11 @@ public:
     }
     
     inline bool intersects(const Interval &other) const {
-        if (empty() || other.empty()) return false;
+        if (empty() or other.empty()) return false;
 
-        return ((other.beg >= beg) && (other.beg <= en)) ||
-            ((other.en >= beg) && (other.en <= en)) ||
-            ((other.beg <= beg) && (other.en >= en));
+        return ((other.beg >= beg) and (other.beg <= en)) or
+            ((other.en >= beg) and (other.en <= en)) or
+            ((other.beg <= beg) and (other.en >= en));
     }
     
     inline parameter_t begin() const {
