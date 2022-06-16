@@ -3,6 +3,20 @@
 Data Clustering Second Project For Software Development for Algorithmic Problems
 
 
+Used algorithms such as LSH,HyperCube (for first exersize) and Discrete, Continuous Frechet to find NN on TimeSeries with L2.
+Plotted my results.
+Filtered and reduced complexity and got rid of time dimension.
+Applied Discrete and Continuous Frechet between Timeseries.
+K-means ++, Lloyd's assignment , assignment by Range Search LSH Frechet / LSH Vector / HyperCube.
+Not fully Functional.
+
+
+
+
+
+
+
+
 
 2η Εργασία Ανάπτυξη Λογισμικού για Αλγοριθμικά Προβλήματα 
 
