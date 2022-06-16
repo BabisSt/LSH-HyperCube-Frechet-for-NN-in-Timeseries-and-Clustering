@@ -1,14 +1,14 @@
 # Finding Nearest Neighbor/s in TimeSeries with Locality Sensitive Hashing, HyperCube, Discrete and Continuous Frechet
 
-Data Clustering Second Project For Software Development for Algorithmic Problems__
+Data Clustering Second Project For Software Development for Algorithmic Problems<br />
 
 
-Used algorithms such as LSH,HyperCube (for first exersize) and Discrete, Continuous Frechet to find NN on TimeSeries with L2.__
-Plotted my results.__
-Filtered and reduced complexity and got rid of time dimension.__
-Applied Discrete and Continuous Frechet between Timeseries.__
-K-means ++, Lloyd's assignment , assignment by Range Search LSH Frechet / LSH Vector / HyperCube.__
-Not fully Functional.__
+Used algorithms such as LSH,HyperCube (for first exersize) and Discrete, Continuous Frechet to find NN on TimeSeries with L2.<br />
+Plotted my results<br />
+Filtered and reduced complexity and got rid of time dimension.<br />
+Applied Discrete and Continuous Frechet between Timeseries.<br />
+K-means ++, Lloyd's assignment , assignment by Range Search LSH Frechet / LSH Vector / HyperCube.<br />
+Not fully Functional.<br />
 
 
 
