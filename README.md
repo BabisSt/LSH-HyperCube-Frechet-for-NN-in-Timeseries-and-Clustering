@@ -1,6 +1,6 @@
 # Finding Nearest Neighbor/s in TimeSeries with Locality Sensitive Hashing, HyperCube, Discrete and Continuous Frechet
 
-Data Clustering First Project For Software Development for Algorithmic Problems
+Data Clustering Second Project For Software Development for Algorithmic Problems
 
 
 
