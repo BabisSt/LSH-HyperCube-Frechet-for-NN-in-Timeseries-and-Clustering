@@ -1,69 +1,72 @@
-# Finding Nearest Neighbor/s in TimeSeries with Locality Sensitive Hashing, HyperCube, Discrete and Continuous Frechet
+# Finding Nearest Neighbor/s in TimeSeries with Locality Sensitive Hashing, HyperCube, Discrete, and Continuous Frechet
 
-Data Clustering Second Project For Software Development for Algorithmic Problems<br />
+**Data Clustering - Second Project for Software Development for Algorithmic Problems**
 
+This project utilizes algorithms such as Locality Sensitive Hashing (LSH), HyperCube (for the first exercise), and Discrete and Continuous Frechet to find the nearest neighbor (NN) in TimeSeries with L2 distance metric.
 
-Used algorithms such as LSH,HyperCube (for first exersize) and Discrete, Continuous Frechet to find NN on TimeSeries with L2.<br />
-Plotted my results<br />
-Filtered and reduced complexity and got rid of time dimension.<br />
-Applied Discrete and Continuous Frechet between Timeseries.<br />
-K-means ++, Lloyd's assignment , assignment by Range Search LSH Frechet / LSH Vector / HyperCube.<br />
-Not fully Functional.<br />
+- Plotted results to visualize the data.
+- Reduced complexity by filtering and removing the time dimension.
+- Applied Discrete and Continuous Frechet between TimeSeries.
+- Implemented K-means++, Lloyd's algorithm, and assignment by Range Search (LSH Frechet / LSH Vector / HyperCube).
 
+**Note**: Not fully functional.
 
+---
 
+## Project Details
 
+**Author**: Stevis Charalampos - Antonios (sdi1600278)
 
+### Directory Structure:
 
+- **assets**: Contains dataset and query files.
+- **bin**: Contains executable files.
+- **build**: Contains `.o` object files.
+- **include**: Contains header files (`.h` and `.hpp`).
+- **logs**: Contains `logs.txt`, which stores the output and logs of the project.
+- **src**: Contains source code files (`.cpp`).
+- **cluster.conf**: Configuration file.
+- **Makefile**: Build configuration file.
+- **README**: This documentation.
 
+### How to Run:
 
+After building the project with `make`, there are two ways to run the program:
 
-2η Εργασία Ανάπτυξη Λογισμικού για Αλγοριθμικά Προβλήματα 
+1. **Manual Run**:
+   - Navigate to the `bin` directory.
+   - Execute commands as outlined in the project specifications.
+   
+2. **Predefined Run**:
+   - Run predefined commands from the `Makefile`, such as `run-lsh`, `run-hc`, etc.
+   - Some commands may not require all arguments, in which case default values are used.
 
-	ΣΤΕΒΗΣ ΧΑΡΑΛΑΜΠΟΣ - ΑΝΤΩΝΙΟΣ sdi1600278
-	
-Από τι αποτελείται η εργασία:
-	Φάκελος assets:	Εκεί θα μπουν τα αρχεία των dataset - query
-	Φάκελος bin:		Εκεί μπαίνουν τα εκτελέσιμα
-	Φάκελος build:		Εκεί μπαίνουν τα .ο
-	Φάκελος include:	Εκεί βρίσκονται τα .h και .hpp
-	Φάκελοσ logs:		Εκεί βρίσκεται το αρχείο logs.txt που έχει τις εκτυπώσεις της εργασίας
-	Φάκελος src:		Εκεί βρίσκονται τα .cpp
-	cluster.conf
-	Makefile
-	README
-	
-Πως τρέχει η εργασία:
-	Αφού κάνουμε make στην εργασία υπάρχουν δύο τρόποι για να τρέξει. 
-	Ο πρώτος είναι να μπούμε στον φάκελο bin και να τρέξουμε τις εντολές όπως λέει η εκφώνηση.
-	Ο δεύτερος είναι να τρέξουμε έτοιμες εντολές μέσα από το Makefile όπως για παράδειγμα run-lsh, run-hc. 
-	Σε μερικές από αυτές τις εντολές δεν δίνονται όλα τα ορόσματα οπότε η εργασία δίνει τα default.
-	
-	Αν η εκτέλεση γίνει με τον πρώτο τρόπο τότε η εργασία ζητάει input, query files ενώ αν γίνει με τον δεύτερο
-	τρέχει κατευθείαν με τα αρχεία που βρήκε στο Makefile. Στην συνέχεια η εργασία δίνει την δυνατότητα να ξανατρέξει
-	με διαφοτερικά στοιχεία.
-	
-	Τα αποτελέσματα της εργασίας όπως είπαμε παραπάνω βρίσκονται στο αρχείο logs/logs.txt
-	
-Τι μπορεί να κάνει η εργασία:
-	Η εργασία ανοίγει το dataset το διαβάζει και το αποθηκεύει, τόσο για input όσο και για query. 
-	Στην συνέχεια λειτουγεί ανάλογα αν είμαστε σε cluster mode ή όχι.
-	Αν όχι διαβάζει queries και δημιουργεί lsh ή hypercube ή frechet.
-	Σε συνδυασμό με την πρώτη εργασία η δεύτερη εκτελεί σωστά τα πρώτα δύο ερωτήματα, δηλαδή διαβάζει τα dataset και εκτελεί lsh,hypercude 
-	όπως στην πρώτη εργασία, είτε κάνει disrcete frechet με νέα distance function.
-	Η LSH μπορεί να βρίσκει χρόνους και να κάνει τις απαραίτητες εκτυπώσεις και με brute force και με get closest neighbors.
-	Κάνει hash τα data που παίρνει από τα hashtables (θα πούμε παρακάτω), βρίσκει τις g και εκτελεί τα queries.
-	H hypercube πέρα από τα παραπάνω δημιουργεί τις f και υπολογίζει τις hamming distances.
-	H frechet κάνει snap τις καμπύλες σύμφωνα με το delta που έχει δωθεί. Για το δεύτερο ερώτημα καλούμε την Min_max_filter που βγάζει τα
-	duplicates και στην συνέχεια κάνουμε padding για να είναι ίσα τα curves. Τέλος μέσα στην LSH καλούμε την frechet.
-	Στο τρίτο ερώτημα κάνουμε filtering , init και padding και είμαστε έτοιμοι να καλέσουμε την continuous frechet.
-	Στα hashtables υπολογίζουμε την hashfunction από την τα κομμάτια που αποτελείται και φτίαχνουμε τα tables με τα buckets τους.
-	
-	Για το Β κομμάτι της εργασίας, διορθώσαμε τα λάθη και πλέον μπορεί να τρέξει κανονικά και να λειτουργήσει όπως απαιτούσε η πρώτη εργασία.
-	Επιπλέον τρέχει τους αλγόριθμους Lloyds,LSH με Frechet.
-	To cluster κομμάτι της εργασίας τρέχει με τις εντολές run-cluster-...
-	
-Τι δεν μπορεί να κάνει η εργασία:
-	Η εργασία δεν τρέχει για continuous frechet καθώς δεν μπορέσαμε να ενσωματώσουμε την βιβλιοθήκη που μας δώθηκε.
+If you choose the first option, the program will ask for input files (dataset and queries). If the second option is chosen, the program runs automatically using the files specified in the `Makefile`. After execution, the program allows you to rerun with different data.
+
+The results are logged in `logs/logs.txt`.
+
+### Functionality of the Project:
+
+The program reads and stores datasets for both input and queries. It operates in cluster mode if enabled, and performs the following operations:
+
+- **LSH**: Finds nearest neighbors using brute force or by getting closest neighbors with hash tables.
+- **Hypercube**: In addition to LSH, it calculates the Hamming distances and generates the `f` values.
+- **Frechet**: Applies the discrete and continuous Frechet distances between TimeSeries. In discrete Frechet, curves are snapped according to the given delta, and duplicate entries are filtered using the `Min_max_filter` method. Padding is applied to make the curves equal in size.
+
+The project computes the hash functions for hash tables and organizes them into buckets for further queries.
+
+### What the Project Can Do:
+
+- Reads datasets and queries, storing them appropriately.
+- Works in both cluster mode and non-cluster mode, performing operations like LSH, Hypercube, and Frechet.
+- **LSH** finds times and makes necessary prints using both brute force and closest neighbor search.
+- **Hypercube** computes the Hamming distance and generates additional values.
+- **Frechet** snaps curves and removes duplicates, applying padding for equal curve sizes. It integrates Frechet into the LSH operations.
+
+For the clustering part, the program runs algorithms like **Lloyd's**, **LSH with Frechet**, and others using the `run-cluster-...` commands.
+
+### Known Limitations:
+
+- **Continuous Frechet**: The program currently does not support Continuous Frechet as we were unable to integrate the required library.
 
 
